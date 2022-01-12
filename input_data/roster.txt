@@ -4,12 +4,12 @@ Brian	Brianson	951000002	bbrianson@uoregon.edu	bry-in	0
 Caleb	Calebson	951000003	ccalebson@uoregon.edu	kay-leb	1
 Carl	Carlson	951000004	ccarlson@uoregon.edu	cah-rul	1
 Diane	Dianeson	951000005	dderekson@uoregon.edu	die-an	1
-Eric	Ericson	951000006	eericson@uoregon.edu	air-ick	0
+Eric	Ericson	951000006   eericson@uoregon.edu	air-ick	0
 Frank	Frankson	951000007	ffrankson@uoregon.edu	frank	0
 Fred	Fredson	951000008	ffredson@uoregon.edu	fred	1
 Gary	Garyson	951000009	ggaryson@uoregon.edu	gair-ee	0
 Greg	Gregson	951000010	ggregson@uoregon.edu	grayg	0
-Guy	Guyson	951000011	gguyson@uoregon.edu	guy	1
+Guy Guyson	951000011	gguyson@uoregon.edu	guy	1
 Hank	Hankson	951000012	hhankson@uoregon.edu	haynk	1
 Ian	Ianson	951000013	iianson@uoregon.edu	ee-in	0
 Jan	Janson	951000014	jjanson@uoregon.edu	jan	1
