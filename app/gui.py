@@ -2,6 +2,8 @@
 
 from tkinter import *
 from tkinter import filedialog, messagebox
+import key_sequence
+
 class Display:
     def __init__(self):
         self.index = 0
@@ -21,6 +23,7 @@ class Display:
             text='Export roster',
             command=self.export_roster
         )
+        self.key_sequence = key_sequence.KeySequence()
 
         self.main_window.bind_all("<Left>", self.shift_index_left)
         self.main_window.bind_all("<Right>", self.shift_index_right)
@@ -82,25 +85,55 @@ class Display:
             # User hit the cancel button on the file dialog
             return
 
+    def random_verication(self):
+        # TODO: check if data will be overwritten, that is, does an output data file exist?
+        data_will_be_overwritten = False
+        if data_will_be_overwritten:
+            do_random_verification = messagebox.askokcancel(
+                message="The keystroke sequence you pressed triggers the randomness distribution verification mode. This will overwrite data in the output data file. Proceed with this test?"
+            )
+        else:
+            do_random_verification = messagebox.askokcancel(
+                message="The keystroke sequence you pressed triggers the randomness distribution verification mode. Proceed with this test?"
+            )
+        if do_random_verification:
+            # TODO Do the random verification process
+            pass
+
+
+    def add_and_check_for_random_verification(self, new_key):
+        self.key_sequence.add_key(new_key)
+        if self.key_sequence.check_for_match():
+            print("Match! do random verification mode")
+            self.random_verication()
+            self.key_sequence.reset()
+
+        else:
+            print("No match")
+
     def shift_index_left(self, event):
         print(f"left key pressed")
         print(event)
         self.index = max((self.index - 1), 0)
-        a.draw_main_screen()
+        self.add_and_check_for_random_verification(key_sequence.LEFT)
+        self.draw_main_screen()
 
     def shift_index_right(self, event):
         print(f"right key pressed")
         print(event)
         self.index = min((self.index + 1), 3)
-        a.draw_main_screen()
+        self.add_and_check_for_random_verification(key_sequence.RIGHT)
+        self.draw_main_screen()
 
     def remove_without_flag(self, event):
         print("Down key pressed")
-        # handle this
+        self.add_and_check_for_random_verification(key_sequence.DOWN)
+        # TODO: handle this
 
     def remove_with_flag(self, event):
         print("Up key pressed")
-        # handle this
+        self.add_and_check_for_random_verification(key_sequence.UP)
+        # TODO: handle this
 
     def show(self):
         self.main_window.mainloop()
