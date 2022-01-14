@@ -63,17 +63,31 @@ def key_pressed(event):
 
     # NOTE: Key pressed up: remove & flag
     if (event.keysym == "Up"):
-        return
+        student = on_deck[index]
+        student.call_on(True)
+        """
+        # Some debugging info!
+        print("Called on student: " + student.get_name())
+        print("total times called on: ", len(student.dates_called))
+        print("total times flagged: ", student.total_num_flags)
+        print("dates called on: ", student.dates_called)
+        """
 
     # NOTE: Key pressed down: remove, no flag
     if (event.keysym == "Down"):
-        return
-    
+        student = on_deck[index]
+        student.call_on(False)
+        """
+        # Some debugging info!
+        print("Called on student: " + student.get_name())
+        print("total times called on: ", len(student.dates_called))
+        print("total times flagged: ", student.total_num_flags)
+        print("dates called on: ", student.dates_called)
+        """
+
     names.clear()
     for student in on_deck:
         names.append(student.get_name())
-    print("names len: ", len(names))
-        
     a.make_labels(names, index)
 
 class Display:
