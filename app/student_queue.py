@@ -43,10 +43,7 @@ class StudentQueue:
 		stop = self.queue_size()
 		on_deck = []
 		for i in range(start, stop):
-			fname = self.student_queue[i].first_name
-			lname = self.student_queue[i].last_name
-			name = fname + " " + lname
-			on_deck.append(name)
+			on_deck.append(self.student_queue[i])
 		assert(len(on_deck) == num_on_deck)
 		return on_deck
 

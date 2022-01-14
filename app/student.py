@@ -1,6 +1,7 @@
 """
 Student data structure: Holds per-student roster data.
 """
+from datetime import date
 
 class Student:
 	# List of standard attributes
@@ -25,4 +26,11 @@ class Student:
 		self.reveal_code = rcode
 		self.total_num_flags = 0
 		self.dates_called = []
-
+		
+	def call_on(self, flag):
+		if(flag):
+			self.total_num_flags = self.total_num_flags + 1
+		self.dates_called.append(date.today())
+	
+	def get_name(self):
+		return self.first_name + " " + self.last_name

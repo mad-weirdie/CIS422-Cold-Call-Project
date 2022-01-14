@@ -40,11 +40,12 @@ class StudentRoster:
 			# Create a new instance of the student class and add them to the roster
 			student = Student(first, last, UO_ID, email, phonetic, reveal_code)
 			self.add_student(student)
-			
+	
+	# TODO: LOAD FROM PICKLE ------------------
 	"""
 	def load_roster_from_pickle(self):
 	"""
-
+	
 	# Potentially obsolete?
 	def export_roster_to_file(self):
 		# TODO: MAKE SURE TO CHECK BEFORE OVERWRITING OLD DATA (AKA OLD SAVE FILE)

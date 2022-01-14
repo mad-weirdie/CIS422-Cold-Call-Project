@@ -22,6 +22,7 @@ from student_queue import *
 #  maintenance of the code.
 
 # names = ["Alice Alison", "Bob Bobbert", "Claire Clairvoyant", "Dave David"]
+on_deck = []
 names = []
 num_on_deck = 4     # NOTE: <--- This should be controlling the variable of the same name in student_queue
 index = 0
@@ -29,7 +30,7 @@ queue = StudentQueue()
 
 """ Main function called on startup """
 def main():
-    global names
+    global on_deck
 
     # TODO: PROMPT INSTRUCTOR FOR FILE INPUT!
     # Create a new roster
@@ -39,11 +40,15 @@ def main():
     # Load roster into a queue
     queue.queue_from_roster(roster)
     
-    names = queue.get_on_deck()
+    # Get list of students who are on deck
+    on_deck = queue.get_on_deck()
+    for student in on_deck:
+        names.append(student.get_name())
+        
     return 0
 
 def key_pressed(event):
-    global index, names
+    global on_deck, index, names
     print(f"key pressed: {event.keysym}")
 
     # NOTE: Key pressed left: move left
@@ -63,7 +68,12 @@ def key_pressed(event):
     # NOTE: Key pressed down: remove, no flag
     if (event.keysym == "Down"):
         return
-
+    
+    names.clear()
+    for student in on_deck:
+        names.append(student.get_name())
+    print("names len: ", len(names))
+        
     a.make_labels(names, index)
 
 class Display:
