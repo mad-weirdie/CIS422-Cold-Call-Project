@@ -19,7 +19,7 @@ class StudentQueue:
 
 	""" Fills the queue using data from an instance of the roster class. """
 	def queue_from_roster(self, roster):
-		for student in roster:
+		for student in roster.student_list:
 			self.student_queue.append(student)
 		# Randomize the queue order
 		self.shuffle_queue()
@@ -32,30 +32,27 @@ class StudentQueue:
 
 	""" Fills the queue using saved queue data from a file. """
 	def load_queue_from_file(self, queue):
-		# TODO: FIGURE OUT EXACTLY WHAT FORMAT TO STORE THE QUEUE IN
+		# TODO: FIGURE OUT EXACTLY WHAT FORMAT TO STORE THE QUEUE IN - pickle! :)
 		for student in queue:
-			# Maintain the ordering of the queue
+			# Maintain the previous queue
 			self.student_queue.append(student)
 
 	def get_on_deck(self):
-		# Check we have enough students in the roster to place "on deck."
-		# TODO: ALTERNATIVE: only 1-3 students in the roster means they're on deck forever?
-		if self.queue_size() < num_on_deck:
-			raise ValueError("On-deck size is greater than size of queue.")
+		# TODO: only 1-3 students in the roster means they're on deck forever
 		start = self.queue_size() - num_on_deck
 		stop = self.queue_size()
 		on_deck = []
 		for i in range(start, stop):
-			on_deck.append(self.student_queue[i])
+			fname = self.student_queue[i].first_name
+			lname = self.student_queue[i].last_name
+			name = fname + " " + lname
+			on_deck.append(name)
 		assert(len(on_deck) == num_on_deck)
 		return on_deck
 
 	""" Randomly shuffles all the students in the queue. """
 	def shuffle_queue(self):
-		for student in self.student_queue:
-			self.student_queue.remove(student)
-			rand_index = random.randint(0, self.queue_size())
-			self.student_queue.insert(rand_index, student)
+		random.shuffle(self.student_queue)
 
 	"""
 	Insert student into random position in the queue, but only up to a

@@ -11,11 +11,10 @@ class Student:
 	phonetic_spelling = ""
 	reveal_code = ""
 	total_num_flags = 0
-
+	dates_called = []
 	"""
-	Constructor for the Student class.
-	Alternatively, it could accepts a string read from roster
-	file to be parsed within the function?
+	Constructor for the Student class. Alternatively, it could accepts a string
+	read from roster file to be parsed within the function?
 	"""
 	def __init__(self, fname, lname, sid, email, phonetic, rcode):
 		self.first_name = fname
@@ -25,4 +24,5 @@ class Student:
 		self.phonetic_spelling = phonetic
 		self.reveal_code = rcode
 		self.total_num_flags = 0
+		self.dates_called = []
 

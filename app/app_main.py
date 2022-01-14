@@ -13,15 +13,58 @@ sit on top of other apps.
 """
 
 from tkinter import *
+from student_roster import *
+from student_queue import *
 
-names = ["Alice Alison","Bob Bobbert", "Claire Clairvoyant", "Dave David"]
+# TODO: On startup, no names highlighted until an L/R arrow key is pressed
+# TODO: All numerical parameters, and all keystroke assignments, discussed in the specification must be set
+#  at the top of a source code file, and easily changeable by a programmer during development and
+#  maintenance of the code.
+
+# names = ["Alice Alison", "Bob Bobbert", "Claire Clairvoyant", "Dave David"]
+names = []
+num_on_deck = 4     # NOTE: <--- This should be controlling the variable of the same name in student_queue
 index = 0
+queue = StudentQueue()
+
+""" Main function called on startup """
+def main():
+    global names
+
+    # TODO: PROMPT INSTRUCTOR FOR FILE INPUT!
+    # Create a new roster
+    roster = StudentRoster()
+    roster.import_roster_from_file("../input_data/roster.txt")
+
+    # Load roster into a queue
+    queue.queue_from_roster(roster)
+    
+    names = queue.get_on_deck()
+    return 0
+
 def key_pressed(event):
+    global index, names
     print(f"key pressed: {event.keysym}")
-    global index
-    index = (index + 1) % 4
+
+    # NOTE: Key pressed left: move left
+    if (event.keysym == "Left"):
+        if (index - 1 >= 0):
+            index = index - 1
+
+    # NOTE: Key pressed right: move right
+    if (event.keysym == "Right"):
+        if (index + 1 < num_on_deck):
+            index = index + 1
+
+    # NOTE: Key pressed up: remove & flag
+    if (event.keysym == "Up"):
+        return
+
+    # NOTE: Key pressed down: remove, no flag
+    if (event.keysym == "Down"):
+        return
+
     a.make_labels(names, index)
-    # Handle key press
 
 class Display:
     def __init__(self):
@@ -31,7 +74,7 @@ class Display:
         self.window.geometry("600x100")
         self.window.bind("<Key>", key_pressed)
 
-    def make_labels(self, names, index):
+    def make_labels(self, names, highlighted):
         for n in range(4):
             if n == index:
                 bg_color = "green"
@@ -42,6 +85,11 @@ class Display:
     def show(self):
         self.window.mainloop()
 
+
+if __name__ == '__main__':
+    main()
+
 a = Display()
-a.make_labels(names,index)
+a.make_labels(names, index)
 a.show()
+

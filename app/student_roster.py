@@ -9,14 +9,15 @@ class StudentRoster:
 	# Alternative: List or Dictionary?
 	student_list = set()
 
-	def __init__(self, roster_file):
+	def __init__(self):
 		student_list = set()
 
 	"""
 	Creates a new roster from student data in the provided file.
 	"""
-	def import_roster_from_file(self, file):
+	def import_roster_from_file(self, filename):
 		# TODO: MAKE SURE TO CHECK BEFORE OVERWRITING OLD DATA ^^^
+		file = open(filename)
 		lines = file.readlines()
 
 		# Check the file format before parsing any data
@@ -39,7 +40,12 @@ class StudentRoster:
 			# Create a new instance of the student class and add them to the roster
 			student = Student(first, last, UO_ID, email, phonetic, reveal_code)
 			self.add_student(student)
+			
+	"""
+	def load_roster_from_pickle(self):
+	"""
 
+	# Potentially obsolete?
 	def export_roster_to_file(self):
 		# TODO: MAKE SURE TO CHECK BEFORE OVERWRITING OLD DATA (AKA OLD SAVE FILE)
 		f = open("roster_export.txt", "w")
@@ -76,13 +82,14 @@ class StudentRoster:
 								"be formatted in the following manner: <first_name><tab><last_name><tab><UO "
 								"ID><tab><email_address><tab><phonetic_spelling> <tab> <reveal_code> <LF>")
 			else:
-				UO_ID = lines[2]
+				UO_ID = fields[2]
 				if len(UO_ID) != 9:
 					raise ValueError("UO_IDs must be 9 digits long.")
-				email_address = lines[3]
-				if not (("@uoregon.edu" in email_address) or ("@cs.uoregon.edu" in email_address)):
+				email_address = fields[3]
+				""""  @uoregon.edujosh@gmail.com """
+				if not (email_address.endswith("@uoregon.edu") or email_address.endswith("cs.uoregon.edu")):
 					raise ValueError("Incorrect email address format.")
-				reveal_code = lines[5]
+				reveal_code = fields[5]
 				if not reveal_code.isdigit() or (int(reveal_code) != 0 and int(reveal_code) != 1):
 					raise ValueError("Reveal codes must be 0 for 'do not display' and 1 for 'permission to display.'")
 		return True
