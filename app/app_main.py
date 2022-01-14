@@ -65,6 +65,7 @@ def key_pressed(event):
     if (event.keysym == "Up"):
         student = on_deck[index]
         student.call_on(True)
+        queue.take_off_deck(student)
         """
         # Some debugging info!
         print("Called on student: " + student.get_name())
@@ -77,6 +78,8 @@ def key_pressed(event):
     if (event.keysym == "Down"):
         student = on_deck[index]
         student.call_on(False)
+        queue.take_off_deck(student)
+        queue.print_on_deck()
         """
         # Some debugging info!
         print("Called on student: " + student.get_name())
@@ -84,7 +87,7 @@ def key_pressed(event):
         print("total times flagged: ", student.total_num_flags)
         print("dates called on: ", student.dates_called)
         """
-
+    on_deck = queue.get_on_deck()
     names.clear()
     for student in on_deck:
         names.append(student.get_name())
@@ -100,6 +103,7 @@ class Display:
 
     def make_labels(self, names, highlighted):
         for n in range(4):
+            print("i: ", n, " student: ", names[n])
             if n == index:
                 bg_color = "green"
             else:
