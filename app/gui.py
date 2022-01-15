@@ -33,6 +33,8 @@ class Display:
         self.names = ["Alice Alison","Bob Bobbert", "Claire Clairvoyant", "Dave David"]
 
     def draw_main_screen(self):
+        l = Label(self.main_window, bg="white", fg="black",text="Next students:", width=0)
+        l.grid(row=0, column=0, padx=10, pady=20)
         for n in range(4):
             if n == self.index:
                 bg_color = "black"
@@ -41,11 +43,16 @@ class Display:
                 bg_color = "white"
                 fg_color = "black"
             l = Label(self.main_window, bg=bg_color, fg=fg_color, text=self.names[n], width=0)
-            l.grid(row=0, column=n,padx=10,pady=20)
+            l.grid(row=0, column=n+1, padx=10, pady=20)
         self.import_button.grid(row=1, column=0, columnspan=2)
         self.export_button.grid(row=1, column=2, columnspan=2)
 
-    def import_roster(self):
+    def format_names(self, list):
+        """Formats a list of names into alphabetical order by last name.
+        Separates them with commas and spaces."""
+
+
+    def import_roster(self, initial_import=False):
         print("Import roster")
         filename = filedialog.askopenfilename(
             title='Choose a roster to import',
@@ -56,12 +63,18 @@ class Display:
         #TODO: call the real functions
         file_is_readable = True
         if file_is_readable:
-            students_who_will_be_changed = ["Alice", "Bob", "Eve"]
+            students_who_will_be_changed = ["Abc Def", "Qwert Tyui", "Axcv Vbnm"]
             # TODO: call real function to get the names
             proceed = True
             # TODO: format the message all pretty
-            proceed = messagebox.askokcancel(
-                message=f"Importing this roster change the stored data of {students_who_will_be_changed}. Proceed?")
+            if initial_import:
+                message = f"This roster contains the following students: {students_who_will_be_changed}"
+            elif len(students_who_will_be_changed) == 0:
+                message = "No student data will be changed by this import. Proceed?"
+            else:
+                message = f"Importing this roster change the stored data of {students_who_will_be_changed}. Proceed?"
+                
+            proceed = messagebox.askokcancel(message=message)
             """for student in students_who_will_be_changed:
                 proceed = messagebox.askyesno(message=f"This will change the stored data of {student}. Proceed?")
                 if proceed == False:
@@ -139,6 +152,17 @@ class Display:
         self.main_window.mainloop()
 
     def run(self):
+        # Hide the main window until after initial import
+        self.main_window.withdraw()
+        roster_found = False
+        while not roster_found:
+            messagebox.showinfo(
+                message="No roster found! Load a roster file from your computer.")
+            self.import_roster(initial_import=True)
+            # TODO: if the import went correctly...
+            roster_found = True
+        # Make main window visible again.
+        self.main_window.deiconify()
         self.draw_main_screen()
         self.show()
 
