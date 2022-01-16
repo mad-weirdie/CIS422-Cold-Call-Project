@@ -18,7 +18,7 @@ class RandomVerification:
 
     def start(self):
         do_random_verification = messagebox.askokcancel(
-            message="You have entered Randomness Distribution Verification Mode. A dedicated output file for this Mode will be created. If it already exists, it will be overwritten. Proceed?"
+            message="You have entered Randomness Distribution Verification Mode. A dedicated output file for this Mode will be created. If it already exists, it will be overwritten. Do you want to proceed?"
         )
         if do_random_verification:
             self.create_output_file()
@@ -38,9 +38,12 @@ class RandomVerification:
 
     def generate_hundred_calls(self):
         for i in range(100):
-            result = ""
+            # call the controller file here
+            
+
+            result = "" # format the cold call info into a string?
             self.write_to_output_file(result)
-        pass
+
 
     ##############################################################################################################
 
@@ -59,13 +62,6 @@ class RandomVerification:
             
 RDV = RandomVerification()
 RDV.start()
-
-
-
-
-
-
-
 
 
 """
