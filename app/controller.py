@@ -64,7 +64,6 @@ class Controller:
         """Formats a list of names into alphabetical order by last name.
         Separates them with commas and spaces."""
 
-
     def import_roster(self, initial_import=False):
         print("Import roster")
         filename = filedialog.askopenfilename(
@@ -73,34 +72,32 @@ class Controller:
         if not filename:
             # User hit the cancel button on the file dialog
             return
-        #TODO: call the real functions
-        #TODO: check if file is readable
+        new_roster = StudentRoster()
+        error = new_roster.import_roster_from_file(filename)
 
-        self.roster.import_roster_from_file(filename)
-
-        file_is_readable = True
-        if file_is_readable:
-            students_who_will_be_changed = ["Abc Def", "Qwert Tyui", "Axcv Vbnm"]
-            # TODO: call real function to get the names
+        if not error:
+            students_who_will_be_changed = new_roster.compare(self.roster)
+            names = [f"{student.first_name} {student.last_name}" for student in
+                     students_who_will_be_changed]
             proceed = True
             # TODO: format the message all pretty
             if initial_import:
-                message = f"This roster contains the following students: {students_who_will_be_changed}"
+                message = f"This roster contains the following students: {names}. Proceed with import?"
             elif len(students_who_will_be_changed) == 0:
-                message = "No student data will be changed by this import. Proceed?"
+                message = "No student data will be changed by this import. Proceed with import?"
             else:
-                message = f"Importing this roster change the stored data of {students_who_will_be_changed}. Proceed?"
+                message = f"Importing this roster change the stored data of {names}. Proceed with import?"
 
             proceed = messagebox.askokcancel(message=message)
 
             if proceed:
-                # TODO: Change the roster
+                self.roster = new_roster
                 print("Change roster")
             else:
                 print("Don't change roster")
         else:
-            # TODO: the message could be returned from the file reader program, for more descriptivity.
-            messagebox.showwarning(message="The roster you selected is not formatted correctly.")
+            messagebox.showwarning(
+                message=f"Cannot import roster file. {error}")
 
         self.queue.queue_from_roster(self.roster)
         self.on_deck = self.queue.get_on_deck()
