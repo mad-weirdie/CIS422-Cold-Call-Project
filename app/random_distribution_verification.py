@@ -15,6 +15,19 @@ class RandomVerification:
     #   Overwrite this file each time the instructor enters Random Distribution Verification Mode
 
     ##############################################################################################################
+    def __init__(self, controller):
+        self.key_sequence = key_sequence.KeySequence()
+        self.controller = controller
+
+    def add_and_check_for_random_verification(self, new_key):
+        """ Will get called by the controller every time a key is pressed."""
+        self.key_sequence.add_key(new_key)
+        if self.key_sequence.check_for_match():
+            print("Match! do random verification mode")
+            self.start()
+            self.key_sequence.reset()
+        else:
+            print("No match")
 
     def start(self):
         do_random_verification = messagebox.askokcancel(
@@ -65,13 +78,5 @@ RDV.start()
 
 
 """
-def add_and_check_for_random_verification(self, new_key):
-    self.key_sequence.add_key(new_key)
-    if self.key_sequence.check_for_match():
-        print("Match! do random verification mode")
-        self.random_verication()
-        self.key_sequence.reset()
 
-    else:
-        print("No match")
 """
