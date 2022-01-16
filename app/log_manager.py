@@ -34,8 +34,12 @@ class LogManager():
         
         # print all student information
         for student in students:
-            summary_file.write(len(student.dates_called)+"  "+student.total_num_flags+" "+student.first_name+"  "+
-            student.last_name+"   "+student.UO_ID+"   "+student.phonetic_spelling+"   "+student.reveal_code+" "+student.dates_called)
+            studentline = f'{len(student.dates_called)}\t{student.totoal_num_flags}\t{student.first_name}\t{student.UO_ID}\t'
+            studentline += f'{student.phonetic_spelling}\t{student.reveal_code}\t'
+            for date in student.dates_called:
+                studentline += f'{date} '
+            studentline += '\n'
+            summary_file.write(studentline)
         
         # write to daily log file
         self._write_line(called_student, flagged)
