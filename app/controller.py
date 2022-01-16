@@ -115,32 +115,6 @@ class Controller:
             # User hit the cancel button on the file dialog
             return
 
-    def random_verication(self):
-        # TODO: check if data will be overwritten, that is, does an output data file exist?
-        data_will_be_overwritten = False
-        if data_will_be_overwritten:
-            do_random_verification = messagebox.askokcancel(
-                message="The keystroke sequence you pressed triggers the randomness distribution verification mode. This will overwrite data in the output data file. Proceed with this test?"
-            )
-        else:
-            do_random_verification = messagebox.askokcancel(
-                message="The keystroke sequence you pressed triggers the randomness distribution verification mode. Proceed with this test?"
-            )
-        if do_random_verification:
-            # TODO Do the random verification process
-            pass
-
-
-    def add_and_check_for_random_verification(self, new_key):
-        self.key_sequence.add_key(new_key)
-        if self.key_sequence.check_for_match():
-            print("Match! do random verification mode")
-            self.random_verication()
-            self.key_sequence.reset()
-
-        else:
-            print("No match")
-
     def shift_index_left(self, event):
         print(f"left key pressed")
         print(event)
