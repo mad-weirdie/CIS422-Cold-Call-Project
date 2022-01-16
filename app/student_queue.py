@@ -24,7 +24,7 @@ class StudentQueue:
 
 	""" Fills the queue using data from an instance of the roster class. """
 	def queue_from_roster(self, roster):
-		for student in roster.student_list:
+		for student in roster.students:
 			self.student_queue.insert(0, student)
 		# Randomize the queue order
 		self.shuffle_queue()

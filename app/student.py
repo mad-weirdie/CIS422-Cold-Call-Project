@@ -34,3 +34,21 @@ class Student:
 	
 	def get_name(self):
 		return self.first_name + " " + self.last_name
+
+	def __members(self):
+		# The __members, __eq__, and __hash__ methods are based on code by Jonas Adler (2007)
+		# published as a Stack Overflow answer here: https://stackoverflow.com/questions/45164691/recommended-way-to-implement-eq-and-hash
+		# Since the total_num_flags and dates_called are mutable, we don't want
+		# to use them for the hash. The other pieces of data are not changed.
+		# We also don't use the student ID in the hash, per project specifications.
+
+		return (self.first_name, self.last_name, self.email_address, self.phonetic_spelling, self.reveal_code)
+
+	def __hash__(self):
+		return hash(self.__members())
+
+	def __eq__(self, other):
+		# TODO: should student ID be used in checking for equqlity? Currently it's not.
+		return isinstance(other, Student) and self.__members() == other.__members()
+
+
