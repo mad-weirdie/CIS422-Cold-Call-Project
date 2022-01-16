@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
 from student import *
-import random
 """
 The core structure and functionality of the Student Queue.
 """
+
+import random
+import pickle
+from student_roster import *
+import os
+
 # Global variable for the number of students the instructor would like to have
 # "on deck" from the queue at any given time.
 num_on_deck = 4
@@ -25,23 +30,21 @@ class StudentQueue:
 		self.shuffle_queue()
 
 	def save_queue_to_file(self, filename):
-		# TODO: FIGURE OUT EXACTLY WHAT FORMAT TO STORE THE QUEUE IN
-		f = open(filename, "w")
-		for student in self.student_queue:
-			f.write(student)
+		#filename = '../student_data/student_queue'
+		outfile = open(filename, 'wb')
+		pickle.dump(self.student_queue, outfile)
+		outfile.close()
 
 	""" Fills the queue using saved queue data from a file. """
-	def load_queue_from_file(self, queue):
-		# TODO: FIGURE OUT EXACTLY WHAT FORMAT TO STORE THE QUEUE IN - pickle! :)
-		for student in queue:
-			# Maintain the previous queue
-			self.student_queue.append(student)
-
+	def load_queue_from_file(self, filename):
+		#filename = '../student_data/student_queue'
+		infile = open(filename, 'rb')
+		self.student_queue = pickle.load(infile, encoding='latin1')
+		
 	def get_on_deck(self):
 		# TODO: only 1-3 students in the roster means they're on deck forever
 		on_deck = []
 		for i in range(num_on_deck):
-			print("i: ", i, "student: ", self.student_queue[i].get_name())
 			on_deck.append(self.student_queue[i])
 		assert(len(on_deck) == num_on_deck)
 		return on_deck
@@ -55,13 +58,8 @@ class StudentQueue:
 		# Wouldn't want to remove somebody from on-deck who isn't on deck...
 		on_deck = self.get_on_deck()
 		assert student in on_deck
-		
-		print("Student's index prior to dequeue: ", self.student_queue.index(student))
 		self.dequeue_student(student)
-		print(len(self.student_queue))
 		self.randomized_enqueue(student)
-		print("Student's index post enqueue: ", self.student_queue.index(student))
-		print(len(self.student_queue))
 	
 	"""
 	Insert student into random position in the queue, but only up to a
@@ -75,9 +73,7 @@ class StudentQueue:
 
 	""" Remove a specific student from the queue. """
 	def dequeue_student(self, student):
-		print(len(self.student_queue))
 		self.student_queue.remove(student)
-		print(len(self.student_queue))
 
 	""" Returns the current size of the student queue. """
 	def queue_size(self):

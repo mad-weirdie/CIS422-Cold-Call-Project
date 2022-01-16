@@ -30,6 +30,7 @@ queue = StudentQueue()
 
 """ Main function called on startup """
 def main():
+    raise NameError("Don't use this one, use controller.py instead!")
     global on_deck
 
     # TODO: PROMPT INSTRUCTOR FOR FILE INPUT!
@@ -100,15 +101,21 @@ class Display:
         self.window.title("Cold Call application")
         self.window.geometry("600x100")
         self.window.bind("<Key>", key_pressed)
+        self.labels = [Label(self.window, bg="white", fg="black", text="", width=0) for i in range(4)]
 
     def make_labels(self, names, highlighted):
+        self.window.configure(background="white")
         for n in range(4):
             print("i: ", n, " student: ", names[n])
             if n == index:
-                bg_color = "green"
+                self.labels[n].configure(bg="black")
+                self.labels[n].configure(fg="white")
             else:
-                bg_color = "white"
-            Label(self.window, bg=bg_color, fg="black", text=names[n], width=0).grid(row=0, column=n)
+                self.labels[n].configure(bg="white")
+                self.labels[n].configure(fg="black")
+            self.labels[n].configure(text=names[n])
+
+            self.labels[n].grid(row=0, column=n)
 
     def show(self):
         self.window.mainloop()
