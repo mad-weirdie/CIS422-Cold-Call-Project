@@ -38,6 +38,7 @@ class Display:
             names.append(student.get_name())
         
         label = Label(self.main_window, bg="white", fg="black",text="Next students:", width=0)
+        self.main_window.attributes('-topmost', True)
         label.grid(row=0, column=0, padx=10, pady=20)
         for n in range(4):
             if n == index:
