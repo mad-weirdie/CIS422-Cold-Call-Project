@@ -112,13 +112,14 @@ class Controller:
 
     def export_roster(self):
         print("Export roster")
-        filename = filedialog.askdirectory(
+        dir_name = filedialog.askdirectory(
             title='Choose a location to save the roster',
             initialdir='~'
         )
-        if not filename:
+        if not dir_name:
             # User hit the cancel button on the file dialog
             return
+        self.roster.export_roster_to_file(dir_name)
 
 def format_names(self, list):
     """Formats a list of names into alphabetical order by last name.

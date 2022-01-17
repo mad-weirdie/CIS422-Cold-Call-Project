@@ -10,6 +10,7 @@ class StudentRoster:
 
 	def __init__(self):
 		self.students = set()
+		self.lines = []
 
 	"""
 	Creates a new roster from student data in the provided file.
@@ -20,14 +21,14 @@ class StudentRoster:
 			file = open(filename, 'r')
 		except (FileNotFoundError, IsADirectoryError):
 			return "Unable to open file."
-		lines = file.readlines()
+		self.lines = file.readlines()
 
 		# Check the file format before parsing any data
-		error = self.get_errors(lines)
+		error = self.get_errors()
 		if error :
 			return error
 
-		for line in lines:
+		for line in self.lines:
 			# Get rid of any whitespace and parse the fields per-line
 			line = line.strip()
 			fields = line.split("\t")
@@ -45,6 +46,14 @@ class StudentRoster:
 			self.add_student(student)
 		return ""
 
+	def save_internally(self):
+		"""
+		Write the lines of this roster to an internal file.
+		"""
+		with open("../student_data/roster.txt", "w") as internal_file:
+			for line in self.lines:
+				internal_file.write(line)
+
 	def compare(self, other_roster):
 		"""
 
@@ -57,7 +66,7 @@ class StudentRoster:
 	"""
 	
 	# Potentially obsolete?
-	def export_roster_to_file(self):
+	def export_roster_to_file(self, directory):
 		# TODO: MAKE SURE TO CHECK BEFORE OVERWRITING OLD DATA (AKA OLD SAVE FILE)
 		f = open("roster_export.txt", "w")
 
@@ -84,8 +93,8 @@ class StudentRoster:
 	Namely, it must contain the correct number of fields (6), and these
 	fields must be of the correct types.
 	"""
-	def get_errors(self, lines):
-		for line in lines:
+	def get_errors(self):
+		for line in self.lines:
 			line = line.strip()
 			fields = line.split("\t")
 			if len(fields) != 6:
