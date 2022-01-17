@@ -53,6 +53,18 @@ class StudentQueue:
 	def shuffle_queue(self):
 		random.shuffle(self.student_queue)
 
+	def shuffle_front_and_back(self):
+		"""
+		At startup, we want to shuffle the front and the back of the queue
+		separately.
+		"""
+		midpoint = int(self.queue_size() * insert_delay)
+		front = self.student_queue[:midpoint]
+		back = self.student_queue[midpoint:]
+		random.shuffle(front)
+		random.shuffle(back)
+		self.student_queue = front + back
+
 	""" Removes a student from on-deck and places them back into the student queue. """
 	def take_off_deck(self, student):
 		# Wouldn't want to remove somebody from on-deck who isn't on deck...

@@ -2,7 +2,8 @@
 
 from tkinter import *
 from tkinter import filedialog, messagebox
-import key_sequence
+from key_sequence import *
+from controller import *
 from student_roster import *
 from student_queue import *
 
@@ -45,7 +46,7 @@ class RandomVerification:
     ##############################################################################################################
 
     def restart_app(self):
-        pass
+        controller = Controller()
 
     ##############################################################################################################
 
@@ -68,8 +69,8 @@ class RandomVerification:
 
     def run(self):
         for i in range(100):
-            self.generate_hundred_calls()
             self.restart_app()
+            self.generate_hundred_calls()
 
 ##################################################################################################################
             

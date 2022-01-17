@@ -104,6 +104,7 @@ class Controller:
             if proceed:
                 self.roster = new_roster
                 print("Change roster")
+                self.roster.save_internally()
             else:
                 print("Don't change roster")
         else:
@@ -112,13 +113,15 @@ class Controller:
 
     def export_roster(self):
         print("Export roster")
-        filename = filedialog.askdirectory(
+        dir_name = filedialog.askdirectory(
             title='Choose a location to save the roster',
             initialdir='~'
         )
-        if not filename:
+        if not dir_name:
             # User hit the cancel button on the file dialog
             return
+        path = self.roster.export_roster_to_file(dir_name)
+        messagebox.showinfo(message=f"Roster exported to {path}")
 
 def format_names(self, list):
     """Formats a list of names into alphabetical order by last name.
