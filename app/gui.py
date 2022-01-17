@@ -3,11 +3,15 @@
 from controller import *
 
 class Display:
+
+    NUM_ON_DECK = 4
+
     def __init__(self, controller):
         self.main_window = Tk()
         self.main_window.configure(bg="white")
         self.main_window.title("Cold Call application")
-        self.main_window.geometry("600x100")
+        self.main_window.geometry('900x80')
+        self.main_window.resizable(False, False)
 
         self.main_window.bind_all("<Left>", controller.shift_index_left)
         self.main_window.bind_all("<Right>", controller.shift_index_right)
@@ -30,17 +34,20 @@ class Display:
 
         self.labels = [
             Label(self.main_window, bg="white", fg="black", text="", width=0) for i
-            in range(4)]
+            in range(self.NUM_ON_DECK)]
 
     def draw_main_screen(self, index, on_deck):
         names = []
         for student in on_deck:
             names.append(student.get_name())
+
+        for i in range(self.NUM_ON_DECK):
+            self.main_window.columnconfigure(i+1, minsize=140)
         
         label = Label(self.main_window, bg="white", fg="black",text="Next students:", width=0)
         self.main_window.attributes('-topmost', True)
-        label.grid(row=0, column=0, padx=10, pady=20)
-        for n in range(4):
+        label.grid(row=0, column=0, padx=10, pady=20, sticky="W")
+        for n in range(self.NUM_ON_DECK):
             if n == index:
                 bg_color = "black"
                 fg_color = "white"
@@ -50,7 +57,7 @@ class Display:
             self.labels[n].configure(bg=bg_color)
             self.labels[n].configure(fg=fg_color)
             self.labels[n].configure(text=names[n])
-            self.labels[n].grid(row=0, column=n+1)
+            self.labels[n].grid(row=0, column=n+1, sticky="W", rowspan=1)
 
-        self.import_button.grid(row=1, column=0, columnspan=2)
-        self.export_button.grid(row=1, column=2, columnspan=2)
+        self.import_button.grid(row=0, column=5, columnspan=1, padx=3)
+        self.export_button.grid(row=0, column=6, columnspan=1, padx=3)
