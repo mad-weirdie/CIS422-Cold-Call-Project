@@ -18,6 +18,10 @@ class Display:
         self.main_window.bind_all("<Up>", controller.remove_with_flag)
         self.main_window.bind_all("<Down>", controller.remove_without_flag)
 
+        self.main_window.wm_attributes('-transparentcolor', self.main_window['bg'])
+        self.main_window.wm_attributes("-fullscreen", 1)
+        self.main_window.attributes("-topmost", True)
+
         self.import_button = Button(
             self.main_window,
             text='Import roster',
