@@ -4,6 +4,8 @@ The Student Roster data structure and its functions.
 """
 from student import *
 from os.path import exists
+from constants import *
+
 
 class StudentRoster:
 	# Store the students in a set to be easily-retrievable?
@@ -109,11 +111,11 @@ class StudentRoster:
 	def get_errors(self):
 		for line in self.lines:
 			line = line.strip()
-			fields = line.split("\t")
+			fields = line.split(ROSTER_DELIMITER)
 			if len(fields) != 6:
 				return ("Incorrect number of fields in the roster file. Each entry in the roster file should "
-								"be formatted in the following manner: <first_name><tab><last_name><tab><UO "
-								"ID><tab><email_address><tab><phonetic_spelling> <tab> <reveal_code> <LF>")
+								"be formatted in the following manner: <first_name><delimiter><last_name><delimiter><UO "
+								"ID><delimiter><email_address><delimiter><phonetic_spelling><delimiter><reveal_code><LF>")
 			else:
 				UO_ID = fields[2]
 				if len(UO_ID) != 9:

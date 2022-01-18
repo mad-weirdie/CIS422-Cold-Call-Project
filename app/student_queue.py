@@ -1,19 +1,15 @@
 #!/usr/bin/env python3
-from student import *
+
 """
 The core structure and functionality of the Student Queue.
 """
 
 import random
 import pickle
+from student import *
 from student_roster import *
 import os
-
-# Global variable for the number of students the instructor would like to have
-# "on deck" from the queue at any given time.
-num_on_deck = 4
-# Don't insert students back into the queue at a certain percentage of the head.
-insert_delay = 0.35
+from constants import *
 
 class StudentQueue:
 	student_queue = []
@@ -44,9 +40,9 @@ class StudentQueue:
 	def get_on_deck(self):
 		# TODO: only 1-3 students in the roster means they're on deck forever
 		on_deck = []
-		for i in range(num_on_deck):
+		for i in range(NUM_ON_DECK):
 			on_deck.append(self.student_queue[i])
-		assert(len(on_deck) == num_on_deck)
+		assert(len(on_deck) == NUM_ON_DECK)
 		return on_deck
 
 	""" Randomly shuffles all the students in the queue. """
@@ -58,7 +54,7 @@ class StudentQueue:
 		At startup, we want to shuffle the front and the back of the queue
 		separately.
 		"""
-		midpoint = int(self.queue_size() * insert_delay)
+		midpoint = int(self.queue_size() * INSERT_DELAY)
 		front = self.student_queue[:midpoint]
 		back = self.student_queue[midpoint:]
 		random.shuffle(front)
@@ -78,7 +74,7 @@ class StudentQueue:
 	certain position relative to the queue size and the insert_delay factor.
 	"""
 	def randomized_enqueue(self, student):
-		start = int(self.queue_size() * insert_delay)
+		start = int(self.queue_size() * INSERT_DELAY)
 		stop = self.queue_size()-1
 		rand_index = random.randint(start, stop)
 		self.student_queue.insert(rand_index, student)

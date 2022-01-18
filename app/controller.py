@@ -5,8 +5,7 @@ from tkinter import filedialog, messagebox
 import key_sequence
 from gui import *
 from student_queue import *
-
-NUM_ON_DECK = 4
+from constants import *
 
 def main():
     controller = Controller()
