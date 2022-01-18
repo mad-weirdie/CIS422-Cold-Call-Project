@@ -119,7 +119,9 @@ class StudentRoster:
 			else:
 				UO_ID = fields[2]
 				if len(UO_ID) != 9:
-					return ("UO_IDs must be 9 digits long.")
+					return "UO IDs must be 9 digits long."
+				if not UO_ID.isnumeric():
+					return "UO IDs must only contain digits"
 				email_address = fields[3]
 				""""  @uoregon.edujosh@gmail.com """
 				if not (email_address.endswith("@uoregon.edu") or email_address.endswith("cs.uoregon.edu")):
