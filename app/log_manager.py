@@ -6,7 +6,7 @@ of student data
 """
 from student import Student
 from os.path import exists
-import datetime
+from datetime import *
 class LogManager():
     """
     Initialized in the main controller, the Log Manager manages log file and performance summary file
@@ -34,7 +34,7 @@ class LogManager():
         
         # print all student information
         for student in students:
-            studentline = f'{len(student.dates_called)}\t{student.totoal_num_flags}\t{student.first_name}\t{student.UO_ID}\t'
+            studentline = f'{len(student.dates_called)}\t{student.total_num_flags}\t{student.first_name}\t{student.UO_ID}\t'
             studentline += f'{student.phonetic_spelling}\t{student.reveal_code}\t'
             for date in student.dates_called:
                 studentline += f'{date} '
@@ -44,7 +44,6 @@ class LogManager():
         # write to daily log file
         self._write_line(called_student, flagged)
             
-
     def _write_line(self, student, flagged: bool):
         """
         Writes a line to the daily log file for a cold call for a student,
@@ -59,6 +58,7 @@ class LogManager():
         file_name = f'daily_log--{date}.txt'
 
         # create the file with heading and date if it doesn't exist
+        heading = f"This is the daily log file for the cold-call assist program."
         if not exists(file_name):
             with open(file_name, 'w') as f:
                 f.write(heading + '\n')

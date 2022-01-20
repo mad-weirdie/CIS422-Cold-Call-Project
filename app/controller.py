@@ -5,6 +5,7 @@ from tkinter import filedialog, messagebox
 import key_sequence
 from gui import *
 from student_queue import *
+from log_manager import *
 from constants import *
 
 def main():
@@ -17,6 +18,7 @@ class Controller:
         self.key_sequence = key_sequence.KeySequence()
         self.roster = StudentRoster()
         self.queue = StudentQueue()
+        self.log_manager = LogManager("summary.txt")
         
         roster_found = False
 
@@ -39,40 +41,32 @@ class Controller:
         self.display.main_window.mainloop()
 
     def shift_index_left(self, event):
-        print(f"left key pressed")
-        print(event)
         self.index = max((self.index - 1), 0)
         #self.add_and_check_for_random_verification(key_sequence.LEFT)
         self.display.draw_main_screen(self.index, self.on_deck)
 
     def shift_index_right(self, event):
-        print(f"right key pressed")
-        print(event)
         self.index = min((self.index + 1), 3)
         #self.add_and_check_for_random_verification(key_sequence.RIGHT)
         self.display.draw_main_screen(self.index, self.on_deck)
 
     def remove_without_flag(self, event):
-        print("Down key pressed")
         #self.add_and_check_for_random_verification(key_sequence.DOWN)
-    
         student = self.on_deck[self.index]
         student.call_on(False)
         self.queue.take_off_deck(student)
-        self.queue.print_on_deck()
         self.on_deck = self.queue.get_on_deck()
         self.display.draw_main_screen(self.index, self.on_deck)
+        self.log_manager.write(self.queue.student_queue, student, False)
 
     def remove_with_flag(self, event):
-        print("Up key pressed")
         #self.add_and_check_for_random_verification(key_sequence.UP)
-    
         student = self.on_deck[self.index]
         student.call_on(True)
         self.queue.take_off_deck(student)
-        self.queue.print_on_deck()
         self.on_deck = self.queue.get_on_deck()
         self.display.draw_main_screen(self.index, self.on_deck)
+        self.log_manager.write(self.queue.student_queue, student, True)
 
     def import_roster(self, initial_import=False):
         print("Import roster")
