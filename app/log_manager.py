@@ -42,9 +42,9 @@ class LogManager():
             summary_file.write(studentline)
         
         # write to daily log file
-        self._write_line(called_student, flagged)
+        self.write_logfile(called_student, flagged)
             
-    def _write_line(self, student, flagged: bool):
+    def write_logfile(self, student, flagged: bool):
         """
         Writes a line to the daily log file for a cold call for a student,
         where the flagged argument determines whether to flag the cold call
