@@ -78,15 +78,13 @@ class RandomVerification:
     ##############################################################################################################
 
     def random_call(self):
-        # call randomization function from student_queue to simulate an application restart
-        self.controller.log_manager._write_line(student)
+        # TODO: call a random student from on deck
+        self.controller.log_manager.write_log_file(student)
 
     ##############################################################################################################
 
     def generate_hundred_cold_calls(self):
         for i in range(100):
-            # NOTE: SPECIFY OUTPUT FILE
-            #self.controller.remove_without_flag()
             self.random_call()
 
     ##############################################################################################################
