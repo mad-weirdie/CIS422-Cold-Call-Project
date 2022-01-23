@@ -11,20 +11,21 @@ from student_queue import *
 
 class RandomVerification:
     #   Restart the program 100 times
-    #   Issue 100 random cold calls EACH TIME the program restarts (10,000 total)
+    #   Issue 100 random cold calls each time the program restarts (10,000 total)
     #   All 10,000 cold calls should go to the same "Rand Dist" output file.
     #   Overwrite this file each time the instructor enters Random Distribution Verification Mode
 
     ##############################################################################################################
 
-    def __init__(self, controller):
+    def __init__(self):
         self.key_sequence = key_sequence.KeySequence()
-        self.controller = controller
+        self.controller = Controller()
+
 
     ##############################################################################################################
 
     def add_and_check_for_random_verification(self, new_key):
-        """ Will get called by the controller every time a key is pressed."""
+        # Will get called by the controller every time a key is pressed."""
         self.key_sequence.add_key(new_key)
         if self.key_sequence.check_for_match():
             self.start()
@@ -45,6 +46,7 @@ class RandomVerification:
 
     def create_output_file(self):
         self.out = open("random_distribution_verification.txt", "w+")
+        self.controller.log_manager = LogManager("random_distribution_verification.txt")
 
     ##############################################################################################################
 
@@ -54,7 +56,18 @@ class RandomVerification:
         #           So, either make a copy of the queue from Roster class, or import a new test queue from Pickle file.
 
         self.test_queue = StudentQueue()
-        self.test_queue.queue_from_roster(roster)   #TODO: specify the roster file to import
+        self.roster = StudentRoster()
+
+        roster_found = False
+        if (os.path.exists('../student_data/student_queue')):
+            self.test_queue.load_queue_from_file('../student_data/student_queue')
+        else:
+            while not roster_found:
+                messagebox.showinfo(
+                    message="No roster found! Load a roster file from your computer.")
+                self.import_roster(initial_import=True)
+                roster_found = True
+            self.test_queue.queue_from_roster(self.roster)
 
     ##############################################################################################################
 
@@ -64,17 +77,17 @@ class RandomVerification:
 
     ##############################################################################################################
 
-    def generate_hundred_cold_calls(self):
-        for i in range(100):
-            # call the controller file here
-            self.test_queue.take_off_deck(student)  #TODO: Determine which student to dequeue
-            result = student                        #TODO: Figure out what to write to output file
-            self.write_to_output_file(result)
+    def random_call(self):
+        # call randomization function from student_queue to simulate an application restart
+        self.controller.log_manager._write_line(student)
 
     ##############################################################################################################
 
-    def write_to_output_file(self, result):
-        self.out.write(result + "\n")
+    def generate_hundred_cold_calls(self):
+        for i in range(100):
+            # NOTE: SPECIFY OUTPUT FILE
+            #self.controller.remove_without_flag()
+            self.random_call()
 
     ##############################################################################################################
 

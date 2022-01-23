@@ -14,7 +14,7 @@ class StudentRoster:
 	def __init__(self):
 		self.students = set()
 		try:
-			with open("../student_data/roster.txt", "r") as f:
+			with open("../input_data/roster.txt", "r") as f:
 				self.lines = f.readlines()
 		except FileNotFoundError:
 			self.lines = []
