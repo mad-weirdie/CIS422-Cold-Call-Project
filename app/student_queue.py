@@ -16,7 +16,7 @@ class StudentQueue:
 
 	""" Basic constructor for the student queue. """
 	def __init__(self):
-		student_queue = []
+		self.student_queue = []
 
 	""" Fills the queue using data from an instance of the roster class. """
 	def queue_from_roster(self, roster):

@@ -3,6 +3,7 @@
 from controller import *
 from constants import *
 
+
 class Display:
 
     def __init__(self, controller):
@@ -12,10 +13,10 @@ class Display:
         self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x70')
         self.main_window.resizable(False, False)
 
-        self.main_window.bind_all("<Left>", controller.shift_index_left)
-        self.main_window.bind_all("<Right>", controller.shift_index_right)
-        self.main_window.bind_all("<Up>", controller.remove_with_flag)
-        self.main_window.bind_all("<Down>", controller.remove_without_flag)
+        self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index_left)
+        self.main_window.bind_all(f"<{MOVE_RIGHT_KEY}>", controller.shift_index_right)
+        self.main_window.bind_all(f"<{REMOVE_WITH_FLAG_KEY}>", controller.remove_with_flag)
+        self.main_window.bind_all(f"<{REMOVE_WITHOUT_FLAG_KEY}>", controller.remove_without_flag)
 
         self.import_button = Button(
             self.main_window,
@@ -28,8 +29,6 @@ class Display:
             text='Export roster',
             command=controller.export_roster
         )
-
-        self.key_sequence = key_sequence.KeySequence()
 
         self.labels = [
             Label(self.main_window, bg="white", fg="black", text="", width=0) for i
