@@ -39,11 +39,8 @@ class Controller:
         self.roster = StudentRoster()
         self.queue = StudentQueue()
         self.log_manager = LogManager("summary.txt")
-
         self.inital_load_queue_roster()
-
         self.display = Display(self)
-
         self.display.main_window.deiconify()
         self.queue.save_queue_to_file('../student_data/student_queue')
         self.on_deck = self.queue.get_on_deck()
