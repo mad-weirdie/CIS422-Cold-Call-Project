@@ -66,7 +66,7 @@ class Controller:
         self.display.draw_main_screen(self.index, self.on_deck)
 
     def shift_index_right(self, event):
-        self.index = min((self.index + 1), 3)
+        self.index = min((self.index + 1), len(self.on_deck) - 1)
         #self.add_and_check_for_random_verification(key_sequence.RIGHT)
         self.display.draw_main_screen(self.index, self.on_deck)
 
