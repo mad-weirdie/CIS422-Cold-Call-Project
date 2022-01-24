@@ -20,10 +20,13 @@ class StudentQueue:
 
 	""" Fills the queue using data from an instance of the roster class. """
 	def queue_from_roster(self, roster):
+		print(roster.students)
 		for student in roster.students:
-			self.student_queue.insert(0, student)
+			if student.include_on_deck():
+				self.student_queue.insert(0, student)
 		# Randomize the queue order
 		self.shuffle_queue()
+		print(self.student_queue)
 
 	def save_queue_to_file(self, filename):
 		#filename = '../student_data/student_queue'
@@ -40,9 +43,8 @@ class StudentQueue:
 	def get_on_deck(self):
 		# TODO: only 1-3 students in the roster means they're on deck forever
 		on_deck = []
-		for i in range(NUM_ON_DECK):
+		for i in range(min(NUM_ON_DECK, len(self.student_queue))):
 			on_deck.append(self.student_queue[i])
-		assert(len(on_deck) == NUM_ON_DECK)
 		return on_deck
 
 	""" Randomly shuffles all the students in the queue. """

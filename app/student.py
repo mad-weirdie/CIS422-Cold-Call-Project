@@ -35,6 +35,11 @@ class Student:
 	def get_name(self):
 		return self.first_name + " " + self.last_name
 
+	def include_on_deck(self):
+		# We may not want to include some students in the cold calling display,
+		# as communicated by the reveal code.
+		return self.reveal_code == "0"
+
 	def __members(self):
 		# The __members, __eq__, and __hash__ methods are based on code by Jonas Adler (2007)
 		# published as a Stack Overflow answer here: https://stackoverflow.com/questions/45164691/recommended-way-to-implement-eq-and-hash
