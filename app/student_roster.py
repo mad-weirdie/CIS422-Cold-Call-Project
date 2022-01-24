@@ -103,7 +103,7 @@ class StudentRoster:
 
 	def compare(self, other_roster):
 		""" Compares the contents of two rosters, returning the differences. """
-		#return self.students.symmetric_difference(other_roster.students)
+		return self.students.symmetric_difference(other_roster.students)
 
 	def export_roster_to_file(self, directory):
 		""" Exports the roster to a file in the specified directory. """
