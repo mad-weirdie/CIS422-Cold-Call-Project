@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 
-from tkinter import *
 from tkinter import filedialog, messagebox
 from key_sequence import *
 from controller import *
 from student_roster import *
 from student_queue import *
+from random import randrange
+from constants import *
+from datetime import *
+from os.path import exists
+from student import Student
 
 ##################################################################################################################
 
@@ -20,7 +24,6 @@ class RandomVerification:
     def __init__(self):
         self.key_sequence = key_sequence.KeySequence()
         self.controller = Controller()
-
 
     ##############################################################################################################
 
@@ -38,22 +41,16 @@ class RandomVerification:
             message="You have entered Randomness Distribution Verification Mode. A dedicated output file for this Mode will be created. If it already exists, it will be overwritten. Do you want to proceed?"
         )
         if do_random_verification:
-            self.create_output_file()
+            self.output_file = open("random_distribution_verification.txt", "w+")
+            self.write(self.output_file)
             self.create_test_queue()
             self.run()
     
     ##############################################################################################################
 
-    def create_output_file(self):
-        self.out = open("random_distribution_verification.txt", "w+")
-        self.controller.log_manager = LogManager("random_distribution_verification.txt")
-
-    ##############################################################################################################
-
     def create_test_queue(self):
-        #   Should the test queue be created from an instance of Roster class, or imported from a file?
         #   NOTE:   After running Rand Dist Verficiation, we probably want the queue to be how it was before.
-        #           So, either make a copy of the queue from Roster class, or import a new test queue from Pickle file.
+        #           So, we should either make a copy of the queue from Roster class, or import a new test queue from Pickle file.
 
         self.test_queue = StudentQueue()
         self.roster = StudentRoster()
@@ -71,28 +68,40 @@ class RandomVerification:
 
     ##############################################################################################################
 
-    def restart_app(self):
-        # call randomization function from student_queue to simulate an application restart
-        self.test_queue.shuffle_front_and_back()
-
-    ##############################################################################################################
-
     def random_call(self):
         # TODO: call a random student from on deck
-        self.controller.log_manager.write_log_file(student)
-
-    ##############################################################################################################
-
-    def generate_hundred_cold_calls(self):
-        for i in range(100):
-            self.random_call()
+        on_deck = self.test_queue.get_on_deck()
+        student_index = randrange(NUM_ON_DECK)
+        student = on_deck[student_index]
+        self.test_queue.take_off_deck(student)
+        on_deck = self.test_queue.get_on_deck()
+        self.write_line(student, self.output_file)
 
     ##############################################################################################################
 
     def run(self):
         for i in range(100):
-            self.restart_app()
-            self.generate_hundred_cold_calls()
+            # call randomization function from student_queue to simulate an application restart
+            self.test_queue.shuffle_front_and_back()
+            for i in range(100):
+                self.random_call()
+
+    ##############################################################################################################
+
+    def write(self, output_file):
+        output_file = self.output_file
+        # header
+        output_file.write("Random Distribution Verification Mode\n")
+        date_line = f"Tested on {datetime.today().strftime('%Y-%m-%d')}\n\n"
+        output_file.write(date_line)
+
+    ##############################################################################################################
+
+    def write_line(self, student, output_file):
+        output_file = self.output_file
+        # write line
+        cold_call = f"{student.first_name} {student.last_name}\n"
+        output_file.write(cold_call)
 
 ##################################################################################################################
             
