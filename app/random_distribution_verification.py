@@ -102,8 +102,3 @@ class RandomVerification:
         # write line
         cold_call = f"{student.first_name} {student.last_name}\n"
         output_file.write(cold_call)
-
-##################################################################################################################
-            
-RDV = RandomVerification()
-RDV.start()
