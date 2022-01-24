@@ -1,5 +1,24 @@
 #!/usr/bin/env python3
 
+###############################################################################
+"""
+Script Name:    Instructor-View Controller
+
+Description:    The main controller for the CoolCall Program.
+                This module is the main driver responding to actions from the
+                user. This includes receiving keyboard input, calling the
+                StudentQueue to remove and re-add students from the Queue based
+                on this input. The module is also responsible for the importing
+                and exporting of student data roster files.
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/23/2022
+Last Edit By:   Madison Werries
+"""
+###############################################################################
 from tkinter import *
 from tkinter import filedialog, messagebox
 import key_sequence
@@ -7,6 +26,7 @@ from gui import *
 from student_queue import *
 from log_manager import *
 from constants import *
+###############################################################################
 
 def main():
     controller = Controller()
@@ -46,7 +66,7 @@ class Controller:
         self.display.draw_main_screen(self.index, self.on_deck)
 
     def shift_index_right(self, event):
-        self.index = min((self.index + 1), 3)
+        self.index = min((self.index + 1), len(self.on_deck) - 1)
         #self.add_and_check_for_random_verification(key_sequence.RIGHT)
         self.display.draw_main_screen(self.index, self.on_deck)
 

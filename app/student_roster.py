@@ -1,17 +1,59 @@
 #!/usr/bin/env python3
+
+###############################################################################
 """
-The Student Roster data structure and its functions.
+Script Name:    Student Roster Class
+
+Description:    The Student Roster Class for the CoolCall Program.
+                This module is responsible for reading in a Student Roster from
+                a user-provided data file, converting the read data into
+                Student objects.
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/23/2022
+Last Edit By:   Madison Werries
 """
+###############################################################################
 from student import *
 from os.path import exists
 from constants import *
-
+###############################################################################
 
 class StudentRoster:
-	# Store the students in a set to be easily-retrievable?
-	# Alternative: List or Dictionary?
+	""" A class to represent all the students currently in a course.
 
+		Attributes
+		=======================================================================
+		students
+			a list of Student objects
+		lines
+			the lines read in from the roster txt file
+		
+		Methods
+		=======================================================================
+		import_roster_from_file(filename)
+			Creates a new roster from student data in the provided file.
+		save_internally()
+			Saves the data in the roster to an internal file.
+		compare()
+			Compares the contents of two rosters, returning the differences.
+		export_roster_to_file(directory)
+			Exports the roster to a file in the specified directory.
+		add_student(student)
+			Adds the specified student to the queue.
+		remove_student(student)
+			Removes the specified student from the queue.
+		num_students()
+			Returns the number of students currently in the queue.
+		get_errors()
+			Returns any errors with the format of a provided roster file.
+	"""
+	
 	def __init__(self):
+		""" Constructs an empty student roster object. """
 		self.students = set()
 		try:
 			with open("../input_data/roster.txt", "r") as f:
@@ -19,10 +61,8 @@ class StudentRoster:
 		except FileNotFoundError:
 			self.lines = []
 
-	"""
-	Creates a new roster from student data in the provided file.
-	"""
 	def import_roster_from_file(self, filename):
+		""" Creates a new roster from student data in the provided file. """
 		try:
 			file = open(filename, 'r')
 		except (FileNotFoundError, IsADirectoryError):
@@ -34,7 +74,7 @@ class StudentRoster:
 
 		# Check the file format before parsing any data
 		error = self.get_errors()
-		if error :
+		if error:
 			return error
 
 		for line in self.lines:
@@ -56,28 +96,18 @@ class StudentRoster:
 		return ""
 
 	def save_internally(self):
-		"""
-		Write the lines of this roster to an internal file.
-		"""
+		""" Saves the data in the roster to an internal file. """
 		with open("../student_data/roster.txt", "w") as internal_file:
 			for line in self.lines:
 				internal_file.write(line)
 
 	def compare(self, other_roster):
-		"""
+		""" Compares the contents of two rosters, returning the differences. """
+		#return self.students.symmetric_difference(other_roster.students)
 
-		"""
-		return self.students.symmetric_difference(other_roster.students)
-
-	# TODO: LOAD FROM PICKLE ------------------
-	"""
-	def load_roster_from_pickle(self):
-	"""
-	
-	# Potentially obsolete?
 	def export_roster_to_file(self, directory):
+		""" Exports the roster to a file in the specified directory. """
 		# TODO: MAKE SURE TO CHECK BEFORE OVERWRITING OLD DATA (AKA OLD SAVE FILE)
-
 		path = f"{directory}/roster.txt"
 		found = False
 		i = 0
@@ -94,21 +124,21 @@ class StudentRoster:
 		return path
 
 	def add_student(self, student):
+		""" Adds the specified student to the queue. """
 		self.students.add(student)
 
 	def remove_student(self, student):
+		""" Removes the specified student from the queue. """
 		self.students.remove(student)
 
-	# Returns the number of students in the current roster
 	def num_students(self):
+		""" Returns the number of students currently in the queue. """
 		return len(self.students)
 
-	"""
-	This function checks that a roster file is in the correct format
-	Namely, it must contain the correct number of fields (6), and these
-	fields must be of the correct types.
-	"""
 	def get_errors(self):
+		""" This function checks that a roster file is in the correct format.
+		Namely, it must contain the correct number of fields (6), and that
+		these fields are of the correct type and/or format. """
 		for line in self.lines:
 			line = line.strip()
 			fields = line.split(ROSTER_DELIMITER)
