@@ -34,10 +34,12 @@ class Display:
             Label(self.main_window, bg="white", fg="black", text="", width=0) for i
             in range(NUM_ON_DECK)]
 
-    def draw_main_screen(self, index, on_deck):
+    def draw_main_screen(self, selection_index, on_deck):
         names = []
-        for student in on_deck:
-            names.append(student.get_name())
+        for i in range(len(on_deck)):
+            names.append(on_deck[i].get_name())
+        for i in range(len(on_deck), NUM_ON_DECK):
+            names.append("")
 
         self.main_window.columnconfigure(0, minsize=self.main_window.winfo_screenwidth()/7)
         for i in range(NUM_ON_DECK):
@@ -46,17 +48,17 @@ class Display:
         label = Label(self.main_window, bg="white", fg="black",text="Next students:", width=0)
         self.main_window.attributes('-topmost', True)
         label.grid(row=0, column=0, padx=10, pady=20, sticky="W")
-        for n in range(NUM_ON_DECK):
-            if n == index:
+        for i in range(NUM_ON_DECK):
+            if i == selection_index:
                 bg_color = "black"
                 fg_color = "white"
             else:
                 bg_color = "white"
                 fg_color = "black"
-            self.labels[n].configure(bg=bg_color)
-            self.labels[n].configure(fg=fg_color)
-            self.labels[n].configure(text=names[n])
-            self.labels[n].grid(row=0, column=(n+1), sticky="W", rowspan=1)
+            self.labels[i].configure(bg=bg_color)
+            self.labels[i].configure(fg=fg_color)
+            self.labels[i].configure(text=names[i])
+            self.labels[i].grid(row=0, column=(i+1), sticky="W", rowspan=1)
 
         self.import_button.grid(row=0, column=(NUM_ON_DECK + 1), columnspan=1, padx=20)
         self.export_button.grid(row=0, column=(NUM_ON_DECK + 2), columnspan=1, padx=3)
