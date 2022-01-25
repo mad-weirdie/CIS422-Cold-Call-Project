@@ -62,7 +62,13 @@ class StudentRoster:
 			self.lines = []
 
 	def import_roster_from_file(self, filename):
-		""" Creates a new roster from student data in the provided file. """
+		""" Creates a new roster from student data in the provided file, if
+		possible, or return a descriptive error.
+		filename: (str) The file path of the roster we want to import.
+
+		Returns a string with a descriptive error, or the empty string if the
+		import is successful.
+		"""
 		try:
 			file = open(filename, 'r')
 		except (FileNotFoundError, IsADirectoryError):
@@ -106,8 +112,21 @@ class StudentRoster:
 		return self.students.symmetric_difference(other_roster.students)
 
 	def export_roster_to_file(self, directory):
-		""" Exports the roster to a file in the specified directory. """
-		# TODO: MAKE SURE TO CHECK BEFORE OVERWRITING OLD DATA (AKA OLD SAVE FILE)
+		""" Exports the roster to a file in the specified directory."""
+
+		path = self._get_path_name(directory)
+		with open(path, "w") as f:
+			for line in self.lines:
+				f.write(line)
+		return path
+
+	def _get_path_name(self, directory):
+		"""
+		To avoid overwriting data, we want to find an unused filename to
+		save the roster to. Ideally, it should be <directory>/roster.txt,
+		but if that is unavailable, it should be <directory>/roster<i>.txt for
+		the smallest possible natural number <i>
+		"""
 		path = f"{directory}/roster.txt"
 		found = False
 		i = 0
@@ -117,10 +136,6 @@ class StudentRoster:
 				i += 1
 			else:
 				found = True
-		print("writing to", path)
-		with open(path, "w") as f:
-			for line in self.lines:
-				f.write(line)
 		return path
 
 	def add_student(self, student):
