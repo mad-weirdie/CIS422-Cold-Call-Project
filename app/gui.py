@@ -1,38 +1,38 @@
 #!/usr/bin/env python3
-
+from tkinter import *
 from controller import *
 from constants import *
+from random_distribution_verification import *
 
 
 class Display:
 
     def __init__(self, controller):
+        self.rdv = RandomVerification()
         self.main_window = Tk()
         self.main_window.configure(bg="white")
         self.main_window.title("Cold Call application")
-        self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x70')
+        self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x60')
         self.main_window.resizable(False, False)
-
-        self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index_left)
+        self.main_window.bind_all("<KeyRelease>", self.rdv.add_and_check_for_random_verification, True)
+        self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index_left, True)
         self.main_window.bind_all(f"<{MOVE_RIGHT_KEY}>", controller.shift_index_right)
         self.main_window.bind_all(f"<{REMOVE_WITH_FLAG_KEY}>", controller.remove_with_flag)
         self.main_window.bind_all(f"<{REMOVE_WITHOUT_FLAG_KEY}>", controller.remove_without_flag)
-
         self.import_button = Button(
             self.main_window,
             text='Import roster',
             command=controller.import_roster
         )
-        
         self.export_button = Button(
             self.main_window,
             text='Export roster',
             command=controller.export_roster
         )
-
         self.labels = [
             Label(self.main_window, bg="white", fg="black", text="", width=0) for i
             in range(NUM_ON_DECK)]
+
 
     def draw_main_screen(self, selection_index, on_deck):
         names = []

@@ -39,26 +39,28 @@ class Controller:
         self.roster = StudentRoster()
         self.queue = StudentQueue()
         self.log_manager = LogManager("summary.txt")
-        
-        roster_found = False
+        self.inital_load_queue_roster()
+        self.display = Display(self)
+        self.display.main_window.deiconify()
+        self.queue.save_queue_to_file('../student_data/student_queue')
+        self.on_deck = self.queue.get_on_deck()
+        self.display.draw_main_screen(self.index, self.on_deck)
+        self.display.main_window.mainloop()
 
-        if (os.path.exists('../student_data/student_queue')):
-            self.queue.load_queue_from_file('../student_data/student_queue')
+    def inital_load_queue_roster(self):
+        roster_found = False
+        if (os.path.exists('../student_data/roster.txt')):
+            self.roster.import_roster_from_file('../student_data/roster.txt')
         else:
             while not roster_found:
                 messagebox.showinfo(
                     message="No roster found! Load a roster file from your computer.")
                 self.import_roster(initial_import=True)
                 roster_found = True
+        if (os.path.exists('../student_data/student_queue')):
+            self.queue.load_queue_from_file('../student_data/student_queue')
+        else:
             self.queue.queue_from_roster(self.roster)
-        
-        self.display = Display(self)
-
-        self.display.main_window.deiconify()
-        self.queue.save_queue_to_file('../student_data/student_queue')
-        self.on_deck = self.queue.get_on_deck()
-        self.display.draw_main_screen(self.index, self.on_deck)
-        self.display.main_window.mainloop()
 
     def shift_index_left(self, event):
         self.index = max((self.index - 1), 0)
@@ -101,10 +103,8 @@ class Controller:
     
         if not error:
             students_who_will_be_changed = new_roster.compare(self.roster)
-            names = [f"{student.first_name} {student.last_name}" for student in
-                     students_who_will_be_changed]
+            names = self.format_names(students_who_will_be_changed)
             proceed = True
-            # TODO: format the message all pretty
             if initial_import:
                 message = f"This roster contains the following students: {names}. Proceed with import?"
             elif len(students_who_will_be_changed) == 0:
@@ -118,6 +118,10 @@ class Controller:
                 self.roster = new_roster
                 print("Change roster")
                 self.roster.save_internally()
+                self.queue = StudentQueue()
+                self.queue.queue_from_roster(self.roster)
+                self.on_deck = self.queue.get_on_deck()
+                self.display.draw_main_screen(self.index, self.on_deck)
             else:
                 print("Don't change roster")
         else:
@@ -136,10 +140,15 @@ class Controller:
         path = self.roster.export_roster_to_file(dir_name)
         messagebox.showinfo(message=f"Roster exported to {path}")
 
-def format_names(self, list):
-    """Formats a list of names into alphabetical order by last name.
-    Separates them with commas and spaces."""
-
+    def format_names(self, students):
+        """Formats a list of names into alphabetical order by last name.
+        Separates them with commas and spaces."""
+        # Converting to set removes duplicates
+        names = set([f"{student.first_name} {student.last_name}" for student in
+                     students])
+        # Sort alphabetical by last name, join with commas
+        names = ', '.join(sorted(names, key=lambda name: name.split()[1]))
+        return names
 
 if __name__ == '__main__':
     main()

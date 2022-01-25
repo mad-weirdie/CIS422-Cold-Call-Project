@@ -3,10 +3,7 @@
 We want a certain sequence of key presses to trigger the random verification mode.
 This keeps track of those key presses.
 """
-LEFT = 0
-RIGHT = 1
-UP = 2
-DOWN = 3
+from constants import MOVE_LEFT_KEY
 
 class KeySequence:
     def __init__(self,target=None):
@@ -14,7 +11,7 @@ class KeySequence:
         if target:
             self.target_sequence = target
         else:
-            self.target_sequence = [LEFT] * 10
+            self.target_sequence = ["Left"] * 10
 
     def add_key(self, key):
         self.key_sequence.append(key)
