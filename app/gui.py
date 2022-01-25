@@ -14,7 +14,7 @@ class Display:
         self.main_window.title("Cold Call application")
         self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x60')
         self.main_window.resizable(False, False)
-        self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", self.rdv.add_and_check_for_random_verification, True)
+        self.main_window.bind_all("<KeyRelease>", self.rdv.add_and_check_for_random_verification, True)
         self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index_left, True)
         self.main_window.bind_all(f"<{MOVE_RIGHT_KEY}>", controller.shift_index_right)
         self.main_window.bind_all(f"<{REMOVE_WITH_FLAG_KEY}>", controller.remove_with_flag)

@@ -28,7 +28,7 @@ class RandomVerification:
 
     def add_and_check_for_random_verification(self, event):
         # Will get called by the GUI every time a key is pressed."""
-        self.key_sequence.add_key(MOVE_LEFT_KEY)
+        self.key_sequence.add_key(event.keysym)
         if self.key_sequence.check_for_match():
             self.start()
             self.key_sequence.reset()
