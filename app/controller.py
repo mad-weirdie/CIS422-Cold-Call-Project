@@ -42,23 +42,23 @@ class Controller:
         self.inital_load_queue_roster()
         self.display = Display(self)
         self.display.main_window.deiconify()
-        self.queue.save_queue_to_file('../student_data/student_queue')
+        self.queue.save_queue_to_file(INTERNAL_QUEUE_LOCATION)
         self.on_deck = self.queue.get_on_deck()
         self.display.draw_main_screen(self.index, self.on_deck)
         self.display.main_window.mainloop()
 
     def inital_load_queue_roster(self):
         roster_found = False
-        if (os.path.exists('../student_data/roster.txt')):
-            self.roster.import_roster_from_file('../student_data/roster.txt')
+        if (os.path.exists(INTERNAL_ROSTER_LOCATION)):
+            self.roster.import_roster_from_file(INTERNAL_ROSTER_LOCATION)
         else:
             while not roster_found:
                 messagebox.showinfo(
                     message="No roster found! Load a roster file from your computer.")
                 self.import_roster(initial_import=True)
                 roster_found = True
-        if (os.path.exists('../student_data/student_queue')):
-            self.queue.load_queue_from_file('../student_data/student_queue')
+        if (os.path.exists(INTERNAL_QUEUE_LOCATION)):
+            self.queue.load_queue_from_file(INTERNAL_QUEUE_LOCATION)
         else:
             self.queue.queue_from_roster(self.roster)
 
@@ -144,11 +144,11 @@ class Controller:
         """Formats a list of names into alphabetical order by last name.
         Separates them with commas and spaces."""
         # Converting to set removes duplicates
-        names = set([f"{student.first_name} {student.last_name}" for student in
+        names = set([student.get_name() for student in
                      students])
         # Sort alphabetical by last name, join with commas
-        names = ', '.join(sorted(names, key=lambda name: name.split()[1]))
-        return names
+        names.sort(key=lambda name: name.split()[1] + name.split()[0])
+        return ', '.join(names)
 
 if __name__ == '__main__':
     main()

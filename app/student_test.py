@@ -28,5 +28,14 @@ def test_include_on_deck():
     assert not d.include_on_deck()
     assert not e.include_on_deck()
 
+def test_call_on():
+    print(a.total_num_flags)
+    print(a.dates_called)
+    a.call_on(True)
+    print(a.total_num_flags)
+    print(a.dates_called)
+
 if __name__ == "__main__":
     test_equality()
+    test_include_on_deck()
+    test_call_on()

@@ -1,3 +1,4 @@
+Example Roster for CIS 4xx
 Adam	Adamson	951000000	aadamson@uoregon.edu	a-duhm	0
 Alex	Alexson	951000001	aaleson@uoregon.edu	a-lex	0
 Brian	Brianson	951000002	bbrianson@uoregon.edu	bry-in	0

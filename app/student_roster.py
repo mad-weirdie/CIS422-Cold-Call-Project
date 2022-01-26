@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 ###############################################################################
 """
 Script Name:    Student Roster Class
@@ -13,8 +11,8 @@ Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
-Last Edited:    1/23/2022
-Last Edit By:   Madison Werries
+Last Edited:    1/25/2022
+Last Edit By:   Arden Butterfield
 """
 ###############################################################################
 from student import *
@@ -56,7 +54,7 @@ class StudentRoster:
 		""" Constructs an empty student roster object. """
 		self.students = set()
 		try:
-			with open("../input_data/roster.txt", "r") as f:
+			with open(INTERNAL_ROSTER_LOCATION, "r") as f:
 				self.lines = f.readlines()
 		except FileNotFoundError:
 			self.lines = []
@@ -83,7 +81,9 @@ class StudentRoster:
 		if error:
 			return error
 
-		for line in self.lines:
+		# The first line of the roster file is a comment, and so is not parsed
+		# when reading in student data.
+		for line in self.lines[1:]:
 			# Get rid of any whitespace and parse the fields per-line
 			line = line.strip()
 			fields = line.split("\t")
@@ -108,12 +108,20 @@ class StudentRoster:
 				internal_file.write(line)
 
 	def compare(self, other_roster):
-		""" Compares the contents of two rosters, returning the differences. """
+		""" Compares the contents of two rosters.
+		other_roster: a roster object
+
+		Returns a set of student objects that are present in one of the rosters
+		student lists, but not in the others. (Note that the "same student"
+		might be returned twice by this function. If we change the email address,
+		say, of a student between two rosters, and then compare them, it will
+		return the student twice in the set: Once with the old email address, and
+		once with the new email address.)"""
 		return self.students.symmetric_difference(other_roster.students)
 
 	def export_roster_to_file(self, directory):
-		""" Exports the roster to a file in the specified directory."""
-
+		""" Exports the roster to a file, called roster.txt or roster<i>.txt,
+		in the specified directory."""
 		path = self._get_path_name(directory)
 		with open(path, "w") as f:
 			for line in self.lines:
@@ -139,23 +147,34 @@ class StudentRoster:
 		return path
 
 	def add_student(self, student):
-		""" Adds the specified student to the queue. """
+		""" Adds the specified Student object to the roster. """
 		self.students.add(student)
 
 	def remove_student(self, student):
-		""" Removes the specified student from the queue. """
-		self.students.remove(student)
+		""" Removes the specified Student object from the roster.
+		Returns true if the student is found in the roster, false otherwise."""
+		if student in self.students:
+			self.students.remove(student)
+			return True
+		return False
 
 	def num_students(self):
-		""" Returns the number of students currently in the queue. """
+		""" Returns the number of students currently in the roster. """
 		return len(self.students)
 
 	def get_errors(self):
 		""" This function checks that a roster file is in the correct format.
 		Namely, it must contain the correct number of fields (6), and that
 		these fields are of the correct type and/or format. """
-		for line in self.lines:
+
+		# The first line of the roster file is a comment, and so is not parsed
+		# when reading in student data.
+		for line in self.lines[1:]:
+			# Each line is separated by a line-feed character, which is not part
+			# of any data field
 			line = line.strip()
+			# The data fields are separated by a character (tab by default)
+			# specified in the constants file.
 			fields = line.split(ROSTER_DELIMITER)
 			if len(fields) != 6:
 				return ("Incorrect number of fields in the roster file. Each entry in the roster file should "
@@ -172,6 +191,6 @@ class StudentRoster:
 				if not (email_address.endswith("@uoregon.edu") or email_address.endswith("cs.uoregon.edu")):
 					return "Incorrect email address format."
 				reveal_code = fields[5]
-				if not reveal_code.isdigit() or (int(reveal_code) != 0 and int(reveal_code) != 1):
-					return "Reveal codes must be 0 for 'do not display' and 1 for 'permission to display.'"
+				if not reveal_code.isdigit():
+					return "Reveal codes must be 0 for 'display', or any other value for 'do not display'"
 		return ""
