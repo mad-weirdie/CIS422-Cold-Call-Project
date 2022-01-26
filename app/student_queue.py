@@ -48,40 +48,76 @@ class StudentQueue:
 		Load a saved queue from a pickle file.
 	save_queue_to_file(filename)
 		Save a queue to a pickle file.
-	get_on_deck():
+	get_on_deck()
 		Get a list of the Students who are on deck currently
-	TODO: the rest of em
+	shuffle_queue()
+		Randomly shuffle the entire queue.
+	shuffle_front_and_back()
+		Shuffle the front and back of the queue separately, to be preformed at
+		startup of class session.
+	take_off_deck(student)
+		Remove a Student from on deck, and reinsert the student into the Queue.
+	randomized_enqueue(student)
+		Insert a Student into a random position in the back portion of the queue.
+	dequeue_student(student)
+		Remove a specific Student from the queue.
+	queue_size()
+		Return the number of students in the queue.
+	print_queue(), print_on_deck()
+		Debugging methods for printing the students stored in the queue and on
+		deck.
+
 	"""
 	""" Basic constructor for the student queue. """
 	def __init__(self):
+		"""
+		Before importing from a roster or pickle file, the student queue is empty.
+		"""
 		self.student_queue = []
 
 	def queue_from_roster(self, roster):
-		print(roster.students)
+		"""
+		Fill out the queue, using a roster. This method is called on initial
+		import, when there is not a saved queue.
+
+		roster: a StudentRoster object
+		"""
+		self.student_queue = []
 		for student in roster.students:
 			if student.include_on_deck():
-				self.student_queue.insert(0, student)
-		# Randomize the queue order
+				# Some of the students are marked to not be stored on deck; we
+				# do not include them in the queue.
+				self.student_queue.append(student)
+		# Randomize the queue order, to make the system more fair.
 		self.shuffle_queue()
-		print(self.student_queue)
 
 	""" Fills the queue using saved queue data from a file. """
 
 	def load_queue_from_file(self, filename):
-		# filename = '../student_data/student_queue'
+		"""
+		Load the queue from the provided pickle filename. This method assumes
+		the file is readable.
+		"""
 		infile = open(filename, 'rb')
 		self.student_queue = pickle.load(infile, encoding='latin1')
 
 	def save_queue_to_file(self, filename):
-		#filename = '../student_data/student_queue'
+		"""
+		Save the queue to a pickle file.
+
+		filename: The file to save the queue to.
+		"""
 		outfile = open(filename, 'wb')
 		pickle.dump(self.student_queue, outfile)
 		outfile.close()
 
-
-		
 	def get_on_deck(self):
-		# TODO: only 1-3 students in the roster means they're on deck forever
+		"""
+		Get the students who are currently on deck.
+		:return: a list of the students who are on deck. This list may be as
+		long as <NUM_ON_DECK>, or may be shorter, if there are not enough
+		students in the class who are coded to be revealed on-deck.
+		"""
 		on_deck = []
 		for i in range(min(NUM_ON_DECK, len(self.student_queue))):
 			on_deck.append(self.student_queue[i])
@@ -89,12 +125,18 @@ class StudentQueue:
 
 	""" Randomly shuffles all the students in the queue. """
 	def shuffle_queue(self):
+		"""
+		Randomize the order of the entire queue.
+		"""
 		random.shuffle(self.student_queue)
 
 	def shuffle_front_and_back(self):
 		"""
-		At startup, we want to shuffle the front and the back of the queue
-		separately.
+		This function is called on startup, if there is a queue saved. It
+		shuffles the front and back of the queue separately, to pick new
+		students to be on deck, but so that students who were recently on deck
+		(and so are now in the back part of the queue) are not immediately put
+		on deck.
 		"""
 		midpoint = int(self.queue_size() * INSERT_DELAY)
 		front = self.student_queue[:midpoint]
@@ -117,7 +159,7 @@ class StudentQueue:
 	"""
 	def randomized_enqueue(self, student):
 		start = int(self.queue_size() * INSERT_DELAY)
-		stop = self.queue_size()-1
+		stop = self.queue_size()
 		rand_index = random.randint(start, stop)
 		self.student_queue.insert(rand_index, student)
 

@@ -33,4 +33,5 @@ REMOVE_WITHOUT_FLAG_KEY = "Down"  # Down arrow
 
 
 # Locations for internal data storage
-INTERNAL_ROSTER_LOCATION = "../input_data/roster.txt"
+INTERNAL_ROSTER_LOCATION = "../student_data/roster.txt"
+INTERNAL_QUEUE_LOCATION = "../student_data/student_queue"
