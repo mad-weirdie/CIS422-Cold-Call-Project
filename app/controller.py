@@ -144,11 +144,11 @@ class Controller:
         """Formats a list of names into alphabetical order by last name.
         Separates them with commas and spaces."""
         # Converting to set removes duplicates
-        names = set([f"{student.first_name} {student.last_name}" for student in
+        names = set([student.get_name() for student in
                      students])
         # Sort alphabetical by last name, join with commas
-        names = ', '.join(sorted(names, key=lambda name: name.split()[1]))
-        return names
+        names.sort(key=lambda name: name.split()[1] + name.split()[0])
+        return ', '.join(names)
 
 if __name__ == '__main__':
     main()

@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 ###############################################################################
 """
 Script Name:    Student Roster Class
@@ -13,8 +11,8 @@ Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
-Last Edited:    1/23/2022
-Last Edit By:   Madison Werries
+Last Edited:    1/25/2022
+Last Edit By:   Arden Butterfield
 """
 ###############################################################################
 from student import *
@@ -193,6 +191,6 @@ class StudentRoster:
 				if not (email_address.endswith("@uoregon.edu") or email_address.endswith("cs.uoregon.edu")):
 					return "Incorrect email address format."
 				reveal_code = fields[5]
-				if not reveal_code.isdigit() or (int(reveal_code) != 0 and int(reveal_code) != 1):
-					return "Reveal codes must be 0 for 'display' and 1 for 'do not display.'"
+				if not reveal_code.isdigit():
+					return "Reveal codes must be 0 for 'display', or any other value for 'do not display'"
 		return ""
