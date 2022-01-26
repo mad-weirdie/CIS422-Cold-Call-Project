@@ -145,37 +145,63 @@ class StudentQueue:
 		random.shuffle(back)
 		self.student_queue = front + back
 
-	""" Removes a student from on-deck and places them back into the student queue. """
+
 	def take_off_deck(self, student):
+		"""
+		Removes a student from on-deck and places them back into the student
+		queue.
+
+		student: Student object to be taken off deck
+		"""
 		# Wouldn't want to remove somebody from on-deck who isn't on deck...
 		on_deck = self.get_on_deck()
 		assert student in on_deck
 		self.dequeue_student(student)
 		self.randomized_enqueue(student)
 	
-	"""
-	Insert student into random position in the queue, but only up to a
-	certain position relative to the queue size and the insert_delay factor.
-	"""
+
 	def randomized_enqueue(self, student):
+		"""
+		Insert student into random position in the back portion of the queue.
+		The part of the queue we insert into is dependent on the INSERT_DELAY
+		parameter, defined in the constants file. This constant defines a
+		proportion of the front of the list into which we don't want to enqueue
+		a student.
+
+		student: Student object to be added to the queue
+		"""
 		start = int(self.queue_size() * INSERT_DELAY)
 		stop = self.queue_size()
 		rand_index = random.randint(start, stop)
 		self.student_queue.insert(rand_index, student)
 
-	""" Remove a specific student from the queue. """
+
 	def dequeue_student(self, student):
+		"""
+		Remove a specific student from the queue.
+		"""
 		self.student_queue.remove(student)
 
-	""" Returns the current size of the student queue. """
+
 	def queue_size(self):
+		"""
+		Returns the number of students currently in the queue. This is
+		equivalent to the number of students in the class who are available to
+		be on-deck.
+		"""
 		return len(self.student_queue)
 	
 	def print_queue(self):
+		"""
+		Debugging function: prints out the students in the queue.
+		"""
 		for i in range(len(self.student_queue)):
 			print(i, " ", self.student_queue[i].get_name())
 			
 	def print_on_deck(self):
+		"""
+		Debugging function: prints out the students on deck.
+		"""
 		on_deck = self.get_on_deck()
 		for i in range(len(on_deck)):
 			print(i, " ", on_deck[i].get_name())
