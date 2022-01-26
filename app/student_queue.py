@@ -90,6 +90,10 @@ class StudentQueue:
 				self.student_queue.append(student)
 		# Randomize the queue order, to make the system more fair.
 		self.shuffle_queue()
+		# After every change to the queue, including creating the queue from a
+		# roster, we want to save it to the file, so the program can be shut
+		# down at any moment without loss of data.
+		self.save_queue_to_file(INTERNAL_QUEUE_LOCATION)
 
 	""" Fills the queue using saved queue data from a file. """
 
@@ -158,6 +162,9 @@ class StudentQueue:
 		assert student in on_deck
 		self.dequeue_student(student)
 		self.randomized_enqueue(student)
+		# After every change to the queue, we want to save it to the file, so
+		# the program can be shut down at any moment without loss of data.
+		self.save_queue_to_file(INTERNAL_QUEUE_LOCATION)
 	
 
 	def randomized_enqueue(self, student):
