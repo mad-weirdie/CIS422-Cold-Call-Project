@@ -6,7 +6,17 @@ of student data
 """
 from student import Student
 from os.path import exists
-from datetime import *
+from datetime import datetime
+
+import os
+
+DAILY_LOG_DIRECTORY = 'Daily Logs'
+DAILY_LOG_FILE_NAME_PREFIX = "daily_log"
+DAILY_LOG_HEADING = "Daily Log File for Cold Call Assist program."
+DAILY_LOG_PATH = os.path.join(
+        f'{os.getenv("HOME")}', 'Cold Call Assist',
+        DAILY_LOG_DIRECTORY)
+
 class LogManager():
     """
     Initialized in the main controller, the Log Manager manages log file and performance summary file
@@ -54,14 +64,23 @@ class LogManager():
         # get date for creating the file name
         date = datetime.today().strftime('%Y-%m-%d')
 
-        # create the file name
-        file_name = f'daily_log--{date}.txt'
+        # create the file name and absolute file name
+        file_name = f'{DAILY_LOG_FILE_NAME_PREFIX}--{date}.txt'
+        absolute_file_name = os.path.join(DAILY_LOG_PATH, file_name)
 
+
+        # check if directory exists
+        
+        if not os.path.exists(DAILY_LOG_PATH):
+            os.makedirs(DAILY_LOG_PATH)
+        else:
+            # DAILY_LOG_PATH exists
+            pass
+        
         # create the file with heading and date if it doesn't exist
-        heading = f"This is the daily log file for the cold-call assist program."
-        if not exists(file_name):
-            with open(file_name, 'w') as f:
-                f.write(heading + '\n')
+        if not os.path.exists(absolute_file_name):
+            with open(absolute_file_name, 'w') as f:
+                f.write(DAILY_LOG_HEADING + '\n')
                 f.write(date + '\n')
 
         # form the response code
@@ -75,7 +94,7 @@ class LogManager():
         cold_call = f'{response_code}\t'
         cold_call += f'{student.first_name} {student.last_name}'
         cold_call += f' <{student.email_address}>\n'
-        with open(file_name, 'a') as f:
+        with open(absolute_file_name, 'a') as f:
             f.write(cold_call)
 
         return
