@@ -27,7 +27,31 @@ from constants import *
 ################################################################################
 
 class StudentQueue:
+	"""
+	A class to represent a single student in a course.
+	Attributes
+	============================================================================
+	student_queue[]
+		A list of Student objects, for storing the students in the order they
+		will be added to the on-deck display.
 
+	Methods
+	============================================================================
+	There are two ways we can load a queue at startup: either it can be loaded
+	from a stored pickle file (which is preferable, since the order of students
+	in the queue will be saved in the pickle file), or it can be created afresh
+	from a StudentRoster.
+
+	queue_from_roster(roster)
+		Fills out the queue from a StudentRoster object.
+	load_queue_from_file(filename)
+		Load a saved queue from a pickle file.
+	save_queue_to_file(filename)
+		Save a queue to a pickle file.
+	get_on_deck():
+		Get a list of the Students who are on deck currently
+	TODO: the rest of em
+	"""
 	""" Basic constructor for the student queue. """
 	def __init__(self):
 		self.student_queue = []

@@ -31,7 +31,19 @@ class Student:
 	dates_called
 		A list of datetime objects, one for each time the student has been called
 		on, with the day that call took place on.
+	Methods
+	============================================================================
+	call_on(flag)
+		Records that was the student was called on during the current day, and
+		increments the number of times the student has been called on with a
+		flag, if flag is true.
+	get_name()
+		Returns a formatted string of the student
+	include_on_deck()
+		Return a boolean: is this student marked to be included on-deck?
 
+	This class supports comparison for equality, and can be hashed, to use in a
+	Python set.
 	"""
 	def __init__(self, fname, lname, sid, email, phonetic, rcode):
 		""" All fields should be passed in as strings."""
