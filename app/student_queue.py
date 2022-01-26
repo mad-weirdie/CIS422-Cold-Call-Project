@@ -1,24 +1,37 @@
-#!/usr/bin/env python3
-
+################################################################################
 """
-The core structure and functionality of the Student Queue.
-"""
+Script Name:    Student Queue Class
 
+Description:    The Student Queue Class for the CoolCall Program.
+                This module is responsible for maintaining a queue of students,
+                to ensure equitable cold-calling. The front of the queue
+                represents the students who are on-deck, when a student is called
+                on, the student is removed from that location in the queue, and
+            	added to somewhere in the back part of the queue, allowing the
+            	students in between to shift down.
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/25/2022
+Last Edit By:   Arden Butterfield
+"""
+################################################################################
 import random
 import pickle
 from student import *
 from student_roster import *
 import os
 from constants import *
+################################################################################
 
 class StudentQueue:
-	student_queue = []
 
 	""" Basic constructor for the student queue. """
 	def __init__(self):
 		self.student_queue = []
 
-	""" Fills the queue using data from an instance of the roster class. """
 	def queue_from_roster(self, roster):
 		print(roster.students)
 		for student in roster.students:
@@ -28,17 +41,20 @@ class StudentQueue:
 		self.shuffle_queue()
 		print(self.student_queue)
 
+	""" Fills the queue using saved queue data from a file. """
+
+	def load_queue_from_file(self, filename):
+		# filename = '../student_data/student_queue'
+		infile = open(filename, 'rb')
+		self.student_queue = pickle.load(infile, encoding='latin1')
+
 	def save_queue_to_file(self, filename):
 		#filename = '../student_data/student_queue'
 		outfile = open(filename, 'wb')
 		pickle.dump(self.student_queue, outfile)
 		outfile.close()
 
-	""" Fills the queue using saved queue data from a file. """
-	def load_queue_from_file(self, filename):
-		#filename = '../student_data/student_queue'
-		infile = open(filename, 'rb')
-		self.student_queue = pickle.load(infile, encoding='latin1')
+
 		
 	def get_on_deck(self):
 		# TODO: only 1-3 students in the roster means they're on deck forever
