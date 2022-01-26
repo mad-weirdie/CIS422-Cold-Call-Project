@@ -6,14 +6,15 @@ of student data
 """
 from student import Student
 from os.path import exists
-from datetime import *
+from datetime import datetime
+
 import os
 
 DAILY_LOG_DIRECTORY = 'Daily Logs'
 DAILY_LOG_FILE_NAME_PREFIX = "daily_log"
 DAILY_LOG_HEADING = "Daily Log File for Cold Call Assist program."
 DAILY_LOG_PATH = os.path.join(
-        f'{os.getenv("HOME")}/Cold Call Assist',
+        f'{os.getenv("HOME")}', 'Cold Call Assist',
         DAILY_LOG_DIRECTORY)
 
 class LogManager():
@@ -61,17 +62,17 @@ class LogManager():
         and today's date.
         """
         # get date for creating the file name
-        date = today().strftime('%Y-%m-%d')
+        date = datetime.today().strftime('%Y-%m-%d')
 
         # create the file name and absolute file name
         file_name = f'{DAILY_LOG_FILE_NAME_PREFIX}--{date}.txt'
-        absolute_file_name = DAILY_LOG_PATH + '/' + file_name
+        absolute_file_name = os.path.join(DAILY_LOG_PATH, file_name)
 
 
         # check if directory exists
         
         if not os.path.exists(DAILY_LOG_PATH):
-            os.mkdir(DAILY_LOG_PATH)
+            os.makedirs(DAILY_LOG_PATH)
         else:
             # DAILY_LOG_PATH exists
             pass
