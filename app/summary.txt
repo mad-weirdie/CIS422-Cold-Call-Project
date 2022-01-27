@@ -1,22 +1,12 @@
 Summary Performance File for Cold Call Assist program
 |Total Times Called|    |Total Times Flagged|   |First Name|    |Last Name| |UO ID| |Email Address| |Phonetic Spelling| |Reveal Code|   |Dates Called|
-1	0	Ned	951000019	ned	0	2022-01-23 
-2	0	Eric	951000006	air-ick	0	2022-01-23 2022-01-23 
-1	0	Adam	951000000	a-duhm	0	2022-01-23 
+0	0	Adam	951000000	a-duhm	0	
+1	0	Kyle	951000016	kai-el	0	2022-01-27 
+1	0	Greg	951000010	grayg	0	2022-01-27 
 0	0	Alex	951000001	a-lex	0	
-1	1	Caleb	951000003	kay-leb	1	2022-01-23 
-1	1	Brian	951000002	bry-in	0	2022-01-23 
-2	1	Jan	951000014	jan	1	2022-01-23 2022-01-23 
-2	0	Guy	951000011	guy	1	2022-01-23 2022-01-23 
-2	0	Fred	951000008	fred	1	2022-01-23 2022-01-23 
-1	0	Frank	951000007	frank	0	2022-01-23 
-1	0	Kyle	951000016	kai-el	0	2022-01-23 
-2	1	Carl	951000004	cah-rul	1	2022-01-23 2022-01-23 
-2	1	Ian	951000013	ee-in	0	2022-01-23 2022-01-23 
-1	1	Jeff	951000015	jeff	1	2022-01-23 
-1	0	Mark	951000017	mark	1	2022-01-23 
-1	0	Gary	951000009	gair-ee	0	2022-01-23 
-1	0	Hank	951000012	haynk	1	2022-01-23 
-1	0	Diane	951000005	die-an	1	2022-01-23 
-0	0	Mia	951000018	me-uh	1	
-0	0	Greg	951000010	grayg	0	
+0	0	Eric	951000006	air-ick	0	
+1	1	Ian	951000013	ee-in	0	2022-01-27 
+1	1	Frank	951000007	frank	0	2022-01-27 
+2	2	Gary	951000009	gair-ee	0	2022-01-27 2022-01-27 
+0	0	Brian	951000002	bry-in	0	
+1	0	Ned	951000019	ned	0	2022-01-27 
