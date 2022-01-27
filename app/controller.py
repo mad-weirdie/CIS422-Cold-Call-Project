@@ -15,8 +15,8 @@ Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
-Last Edited:    1/23/2022
-Last Edit By:   Madison Werries
+Last Edited:    1/26/2022
+Last Edit By:   Arden Butterfield
 """
 ###############################################################################
 from tkinter import *
@@ -46,14 +46,15 @@ class Controller:
 
     Methods
     =======================================================================
-    initial_load_queue_roster()
+    initial_loads()
         Called on start-up, this function loads data into the queue and roster
         objects.
-    shift_index_left(), shift_index_right()
-        Called by key presses, these functions shift the index of which
+    shift_index()
+        Called by key presses, this function shifts the index of which
         on-deck student is currently selected.
-    remove_without_flag(), remove_with_flag()
-        Called by key presses, these functions remove students from on-deck.
+    remove()
+        Called by key presses, this function removes the selected student from
+        on-deck.
     import_roster()
         Prompts the user to import a roster, notifies them if the roster is not
         formatted correctly, and imports the roster. Called if the user presses
@@ -78,55 +79,115 @@ class Controller:
         self.index = 0
 
         # We need to load the roster and queue into memory
-        self.inital_load_queue_roster()
-        self.on_deck = self.queue.get_on_deck()
-        self.display.draw_main_screen(self.index, self.on_deck)
+        self.initial_loads()
+
+        # At start-up, we need to tell the screen what to display.
+        self.display.draw_main_screen(self.index, self.queue.get_on_deck())
+
+        # This starts the main loop in the GUI. This continuously keeps the
+        # screen visible and waits for input from the keyboard/button presses,
+        # which trigger the functions those keys are mapped to.
         self.display.main_window.mainloop()
 
-    def inital_load_queue_roster(self):
 
-        if (os.path.exists(INTERNAL_ROSTER_LOCATION)):
-            self.roster.import_roster_from_file(INTERNAL_ROSTER_LOCATION)
-        else:
-            roster_found = False
-            while not roster_found:
+    def initial_loads(self):
+        """
+        At start-up, the controller needs to load a roster and queue into
+        memory. If there is a roster stored internally, we use that one,
+        otherwise the system prompts the user to import a roster.
+        Likewise, if there is already a queue stored internally, we load that
+        one to memory; Otherwise, we make a new queue from the roster.
+
+        It's important that the roster is loaded before the queue: as the only
+        way to make a new StudentQueue object is from a StudentRoster.
+        """
+        new_roster = self._inital_load_roster()
+        self._initial_load_queue(new_roster)
+
+    def _inital_load_roster(self):
+        """
+        Load a roster into memory. If the roster is not found in the internal
+        storage location, or the stored roster is not parseable, the system
+        prompts the user to import a roster until one is successfully
+        imported.
+
+        returns: did we make a new roster, instead of loading one from internal
+        storage?
+        """
+        new_roster = False
+        errors = self.roster.import_roster_from_file(INTERNAL_ROSTER_LOCATION)
+        if errors:
+
+            while not new_roster:
                 messagebox.showinfo(
                     message="No roster found! Load a roster file from your computer.")
-                roster_found = self.import_roster(initial_import=True)
-        if (os.path.exists(INTERNAL_QUEUE_LOCATION)):
-            self.queue.load_queue_from_file(INTERNAL_QUEUE_LOCATION)
-        else:
+                new_roster = self.import_roster(initial_import=True)
+        return new_roster
+
+    def _initial_load_queue(self, make_new):
+        """
+        Load a queue into memory, either by loading it from the internal pickle
+        file, or by creating a new queue from the roster. If we just imported a
+        new roster, we certainly want to make a new queue, or else the queue
+        might not match the new roster. Otherwise, we only want to make a new
+        queue if we cannot load the queue from the file successfully.
+
+        make_new: (boolean) Should we make a new queue by default?
+        """
+        if make_new or not self.queue.load_queue_from_file(INTERNAL_QUEUE_LOCATION):
             self.queue.queue_from_roster(self.roster)
 
-    def shift_index_left(self, event):
-        self.index = max((self.index - 1), 0)
-        #self.add_and_check_for_random_verification(key_sequence.LEFT)
-        self.display.draw_main_screen(self.index, self.on_deck)
+    def shift_index(self, event):
+        """
+        Shift the selection index left or right, depending on which key is
+        pressed. This method is automatically called every time the left or
+        right keys (or other keys, as defined in constants.py) are pressed.
 
-    def shift_index_right(self, event):
-        self.index = min((self.index + 1), len(self.on_deck) - 1)
-        #self.add_and_check_for_random_verification(key_sequence.RIGHT)
-        self.display.draw_main_screen(self.index, self.on_deck)
+        event: the Tkinter event of the keypress.
+        """
+        if event.keysym == MOVE_LEFT_KEY:
+            self.index = max((self.index - 1), 0)
+        elif event.keysym == MOVE_RIGHT_KEY:
+            self.index = min((self.index + 1), len(self.queue.get_on_deck()) - 1)
+        else:
+            raise ValueError(f"Event {event} should not have triggered the shift_index method.")
+        self.display.draw_main_screen(self.index, self.queue.get_on_deck())
 
-    def remove_without_flag(self, event):
-        #self.add_and_check_for_random_verification(key_sequence.DOWN)
-        student = self.on_deck[self.index]
-        student.call_on(False)
+    def remove(self, event):
+        """
+        Remove the selected student from the queue, with or without flagging
+        them, depending on which keys are pressed. This method is automatically
+        called every time the up or down keys (or other keys, as defined in
+        constants.py) are pressed.
+
+        event: the Tkinter event of the keypress.
+        """
+        student = self.queue.get_on_deck()[self.index]
+        if event.keysym == REMOVE_WITH_FLAG_KEY:
+            flag = True
+        elif event.keysym == REMOVE_WITHOUT_FLAG_KEY:
+            flag = False
+        else:
+            raise ValueError(f"Event {event} should not have triggered the remove method.")
+
+        student.call_on(flag)
         self.queue.take_off_deck(student)
-        self.on_deck = self.queue.get_on_deck()
-        self.display.draw_main_screen(self.index, self.on_deck)
-        self.log_manager.write(self.queue.student_queue, student, False)
-
-    def remove_with_flag(self, event):
-        #self.add_and_check_for_random_verification(key_sequence.UP)
-        student = self.on_deck[self.index]
-        student.call_on(True)
-        self.queue.take_off_deck(student)
-        self.on_deck = self.queue.get_on_deck()
-        self.display.draw_main_screen(self.index, self.on_deck)
-        self.log_manager.write(self.queue.student_queue, student, True)
+        self.log_manager.write(self.queue.student_queue, student, flag)
+        self.display.draw_main_screen(self.index, self.queue.get_on_deck())
 
     def import_roster(self, initial_import=False):
+        """
+        Prompt the user through the steps for importing a roster.
+        This function is called by the user pressing the "Import Roster" button
+        on screen.
+
+        initial_import: Is there no roster yet on file (initial_import is true)?
+        In that case, the messages that the system shows the user are slightly
+        different; instead of notifying about which students are changed, we
+        notify the user the full list of students in the roster.
+
+        Returns: True if we successfully import a roster, False otherwise.
+        """
         print("Import roster")
         filename = filedialog.askopenfilename(
             title='Choose a roster to import',
@@ -156,8 +217,7 @@ class Controller:
                 self.roster.save_internally()
                 self.queue = StudentQueue()
                 self.queue.queue_from_roster(self.roster)
-                self.on_deck = self.queue.get_on_deck()
-                self.display.draw_main_screen(self.index, self.on_deck)
+                self.display.draw_main_screen(self.index, self.queue.get_on_deck())
                 return True
             else:
                 print("Don't change roster")
@@ -168,6 +228,10 @@ class Controller:
             return False
 
     def export_roster(self):
+        """
+        Prompts the user to chose a directory, then exports the directory to
+        that location.
+        """
         print("Export roster")
         dir_name = filedialog.askdirectory(
             title='Choose a location to save the roster',
@@ -180,8 +244,11 @@ class Controller:
         messagebox.showinfo(message=f"Roster exported to {path}")
 
     def _format_names(self, students):
-        """Formats a list of names into alphabetical order by last name.
-        Separates them with commas and spaces."""
+        """
+        Helper function for message dialogs when importing a roster.
+        Formats a list of names into alphabetical order by last name.
+        Separates them with commas and spaces.
+        students is a list of Student objects."""
         # Converting to set removes duplicates
         names = list(set([student.get_name() for student in
                      students]))

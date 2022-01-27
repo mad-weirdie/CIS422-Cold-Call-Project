@@ -99,11 +99,20 @@ class StudentQueue:
 
 	def load_queue_from_file(self, filename):
 		"""
-		Load the queue from the provided pickle filename. This method assumes
-		the file is readable.
+		Attempts to load the queue from the pickle file, returns if it read it
+		successfully.
 		"""
-		infile = open(filename, 'rb')
-		self.student_queue = pickle.load(infile, encoding='latin1')
+		try:
+			infile = open(filename, 'rb')
+			self.student_queue = pickle.load(infile, encoding='latin1')
+			infile.close()
+			# On startup, we want to add some randomization to the queue,
+			# without putting students who were just on deck back on deck again.
+			self.shuffle_front_and_back()
+			return True
+		except Exception as e:
+			return False
+
 
 	def save_queue_to_file(self, filename):
 		"""
