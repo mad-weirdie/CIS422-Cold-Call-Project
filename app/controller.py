@@ -28,10 +28,6 @@ from log_manager import *
 from constants import *
 ###############################################################################
 
-def main():
-    controller = Controller()
-    return 0
-    
 class Controller:
     """
     A class to manage overall logic of the system, and run the various parts of
