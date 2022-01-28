@@ -17,6 +17,11 @@ DAILY_LOG_PATH = os.path.join(
         f'{os.getenv("HOME")}', 'Cold Call Assist',
         DAILY_LOG_DIRECTORY)
 
+SUMMARY_LOG_DIRECTORY = 'Summary Logs'
+SUMMARY_LOG_PATH = os.path.join(
+        f'{os.getenv("HOME")}', 'Cold Call Assist',
+        SUMMARY_LOG_DIRECTORY)
+
 class LogManager():
     """
     Initialized in the main controller, the Log Manager manages log file and performance summary file
@@ -35,8 +40,18 @@ class LogManager():
             2.  Writes cold call information to the Daily Log Manager
             
         """
+        # check if directory exists
+        if not os.path.exists(SUMMARY_LOG_PATH):
+            os.makedirs(SUMMARY_LOG_PATH)
+        else:
+            # SUMMARY_LOG_PATH exists
+            pass
+
+        # create the file name and absolute file name
+        absolute_file_name = os.path.join(SUMMARY_LOG_PATH, self.filename)
+
         # open filename in overwrite mode
-        summary_file = open(self.filename, "w")
+        summary_file = open(absolute_file_name, "w")
 
         # header
         summary_file.write("Summary Performance File for Cold Call Assist program\n")
@@ -44,12 +59,15 @@ class LogManager():
         
         # print all student information
         for student in students:
-            studentline = f'{len(student.dates_called)}\t{student.total_num_flags}\t{student.first_name}\t{student.UO_ID}\t'
+            studentline = f'{len(student.dates_called)}\t{student.total_num_flags}\t{student.first_name}\t{student.last_name}\t{student.UO_ID}\t{student.email_address}\t'
             studentline += f'{student.phonetic_spelling}\t{student.reveal_code}\t'
             for date in student.dates_called:
                 studentline += f'{date} '
             studentline += '\n'
             summary_file.write(studentline)
+
+        # closing file
+        summary_file.close()
         
         # write to daily log file
         self.write_logfile(called_student, flagged)
@@ -70,7 +88,6 @@ class LogManager():
 
 
         # check if directory exists
-        
         if not os.path.exists(DAILY_LOG_PATH):
             os.makedirs(DAILY_LOG_PATH)
         else:
