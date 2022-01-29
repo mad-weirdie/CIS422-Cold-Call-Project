@@ -2,7 +2,7 @@
 """
 Script Name:    Constants and Numerical Parameters
 
-Description:    We have located all numerical parameters and keystroke/button assignments 
+Description:    We have located numerical parameters and keystroke/button assignments 
                 in this source code file. They are easily changeable by a programmer during 
                 development and maintenance of the code.
 
