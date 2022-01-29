@@ -40,10 +40,12 @@ class RandomVerification:
             message="You have entered Randomness Distribution Verification Mode. A dedicated output file for this Mode will be created. If it already exists, it will be overwritten. Do you want to proceed?"
         )
         if do_random_verification:
-            self.output_file = open("random_distribution_verification.txt", "w+")
-            self.write(self.output_file)
+
+            self.output_file = open(f"{LOGS_LOCATION}/random_distribution_verification.txt", "w+")
+            self.write_header()
             self.create_test_queue()
             self.run()
+            self.output_file.close()
     
     ##############################################################################################################
 
@@ -74,7 +76,7 @@ class RandomVerification:
         student = on_deck[student_index]
         self.test_queue.take_off_deck(student)
         on_deck = self.test_queue.get_on_deck()
-        self.write_line(student, self.output_file)
+        self.write_line(student)
 
     ##############################################################################################################
 
@@ -87,17 +89,14 @@ class RandomVerification:
 
     ##############################################################################################################
 
-    def write(self, output_file):
-        output_file = self.output_file
-        # header
-        output_file.write("Random Distribution Verification Mode\n")
+    def write_header(self):
+        self.output_file.write("Random Distribution Verification Mode\n")
         date_line = f"Tested on {datetime.today().strftime('%Y-%m-%d')}\n\n"
-        output_file.write(date_line)
+        self.output_file.write(date_line)
 
     ##############################################################################################################
 
-    def write_line(self, student, output_file):
-        output_file = self.output_file
+    def write_line(self, student):
         # write line
         cold_call = f"{student.first_name} {student.last_name}\n"
-        output_file.write(cold_call)
+        self.output_file.write(cold_call)

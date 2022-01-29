@@ -1,0 +1,3 @@
+Daily Log File for Cold Call Assist program.
+2022-01-28
+X	Ned Nedson <nnedson@uoregon.edu>

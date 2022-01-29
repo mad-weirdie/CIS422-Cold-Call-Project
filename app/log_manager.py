@@ -7,7 +7,7 @@ of student data
 from student import Student
 from os.path import exists
 from datetime import datetime
-
+from constants import *
 import os
 
 DAILY_LOG_DIRECTORY = 'Daily Logs'
@@ -48,10 +48,10 @@ class LogManager():
             pass
 
         # create the file name and absolute file name
-        absolute_file_name = os.path.join(SUMMARY_LOG_PATH, self.filename)
+        summary_filename = LOGS_LOCATION + "/summary.txt"
 
         # open filename in overwrite mode
-        summary_file = open(absolute_file_name, "w")
+        summary_file = open(summary_filename, "w")
 
         # header
         summary_file.write("Summary Performance File for Cold Call Assist program\n")
@@ -83,20 +83,18 @@ class LogManager():
         date = datetime.today().strftime('%Y-%m-%d')
 
         # create the file name and absolute file name
-        file_name = f'{DAILY_LOG_FILE_NAME_PREFIX}--{date}.txt'
-        absolute_file_name = os.path.join(DAILY_LOG_PATH, file_name)
+        log_file_name = f'{LOGS_LOCATION}/{DAILY_LOG_FILE_NAME_PREFIX}--{date}.txt'
 
-
-        # check if directory exists
+        """# check if directory exists
         if not os.path.exists(DAILY_LOG_PATH):
             os.makedirs(DAILY_LOG_PATH)
         else:
             # DAILY_LOG_PATH exists
-            pass
+            pass"""
         
         # create the file with heading and date if it doesn't exist
-        if not os.path.exists(absolute_file_name):
-            with open(absolute_file_name, 'w') as f:
+        if not os.path.exists(log_file_name):
+            with open(log_file_name, 'w') as f:
                 f.write(DAILY_LOG_HEADING + '\n')
                 f.write(date + '\n')
 
@@ -111,7 +109,7 @@ class LogManager():
         cold_call = f'{response_code}\t'
         cold_call += f'{student.first_name} {student.last_name}'
         cold_call += f' <{student.email_address}>\n'
-        with open(absolute_file_name, 'a') as f:
+        with open(log_file_name, 'a') as f:
             f.write(cold_call)
 
         return

@@ -66,6 +66,7 @@ class Controller:
     def __init__(self):
         # Initialize the objects controlled by the controller class.
         self.display = Display(self)
+        self.ensure_directories_exist()
         self.key_sequence = key_sequence.KeySequence()
         self.roster = StudentRoster()
         self.queue = StudentQueue()
@@ -85,6 +86,15 @@ class Controller:
         # which trigger the functions those keys are mapped to.
         self.display.main_window.mainloop()
 
+    def ensure_directories_exist(self):
+        try:
+            os.makedirs('app/student_data')
+        except FileExistsError:
+            pass
+        try:
+            os.makedirs('logs')
+        except FileExistsError:
+            pass
 
     def initial_loads(self):
         """
