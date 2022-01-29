@@ -65,7 +65,6 @@ class Controller:
 """
     def __init__(self):
         # Initialize the objects controlled by the controller class.
-        self.rdv = RandomVerification()
         self.display = Display(self)
         self.ensure_directories_exist()
         self.key_sequence = key_sequence.KeySequence()

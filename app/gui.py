@@ -8,6 +8,7 @@ from random_distribution_verification import *
 class Display:
 
     def __init__(self, controller):
+        self.rdv = RandomVerification()
         self.main_window = Tk()
         self.main_window.configure(bg="white")
         self.main_window.title("Cold Call application")
