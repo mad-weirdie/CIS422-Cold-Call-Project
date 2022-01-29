@@ -103,7 +103,7 @@ class StudentRoster:
 
 	def save_internally(self):
 		""" Saves the data in the roster to an internal file. """
-		with open("../student_data/roster.txt", "w") as internal_file:
+		with open(INTERNAL_ROSTER_LOCATION, "w") as internal_file:
 			for line in self.lines:
 				internal_file.write(line)
 
