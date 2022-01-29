@@ -6,8 +6,8 @@ Script Name:    Instructor-View Controller
 
 Description:    The main controller for the CoolCall Program.
                 This module is the main driver responding to actions from the
-                user. This includes receiving keyboard input, calling the
-                StudentQueue to remove and re-add students from the Queue based
+                user. This includes receiving keyboard input, and calling the
+                StudentQueue to remove/re-add students from the Queue based
                 on this input. The module is also responsible for the importing
                 and exporting of student data roster files.
 
