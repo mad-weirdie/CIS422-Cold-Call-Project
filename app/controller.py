@@ -215,7 +215,7 @@ class Controller:
             elif len(students_who_will_be_changed) == 0:
                 message = "No student data will be changed by this import. Proceed with import?"
             else:
-                message = f"Importing this roster change the stored data of {names}. Proceed with import?"
+                message = f"Importing this roster changes the stored data of {names}. Proceed with import?"
         
             proceed = messagebox.askokcancel(message=message)
         
