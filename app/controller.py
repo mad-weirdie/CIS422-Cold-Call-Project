@@ -88,11 +88,13 @@ class Controller:
 
     def ensure_directories_exist(self):
         try:
-            os.makedirs('app/student_data')
+            os.makedirs(os.path.join(
+                os.path.dirname(__file__), 'student_data'))
         except FileExistsError:
             pass
         try:
-            os.makedirs('logs')
+            os.makedirs(os.path.join(
+                os.path.dirname(__file__), '../logs'))
         except FileExistsError:
             pass
 

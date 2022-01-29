@@ -1,5 +1,7 @@
 # Global variable for the number of students the instructor would like to have
 # "on deck" from the queue at any given time.
+import os.path
+
 NUM_ON_DECK = 4
 
 # NOTE: If NUM_ON_DECK is >= queue_size, then the # of students on-deck will be set to == queue_size.
@@ -38,8 +40,8 @@ REMOVE_WITH_FLAG_KEY = "Up"  # Up arrow
 # Remove the selected student from the on-deck display, without flagging them
 REMOVE_WITHOUT_FLAG_KEY = "Down"  # Down arrow
 
-LOGS_LOCATION = "../logs"
+LOGS_LOCATION = (os.path.join(os.path.dirname(__file__), "../logs"))
 
 # Locations for internal data storage
-INTERNAL_ROSTER_LOCATION = "student_data/roster.txt"
-INTERNAL_QUEUE_LOCATION = "student_data/student_queue"
+INTERNAL_ROSTER_LOCATION = (os.path.join(os.path.dirname(__file__), "student_data/roster.txt"))
+INTERNAL_QUEUE_LOCATION = (os.path.join(os.path.dirname(__file__), "student_data/student_queue"))
