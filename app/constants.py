@@ -1,3 +1,20 @@
+###############################################################################
+"""
+Script Name:    Constants and Numerical Parameters
+
+Description:    We have located all numerical parameters and keystroke/button assignments 
+                in this source code file. They are easily changeable by a programmer during 
+                development and maintenance of the code.
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/28/2022
+Last Edit By:   Arden Butterfield
+"""
+###############################################################################
+
 # Global variable for the number of students the instructor would like to have
 # "on deck" from the queue at any given time.
 import os.path
@@ -23,7 +40,6 @@ ROSTER_DELIMITER = "\t"
 # A more human-readable table of common keys and their corresponding
 # key symbols is available here:
 # https://web.archive.org/web/20190515021108id_/http://infohost.nmt.edu/tcc/help/pubs/tkinter/web/key-names.html
-
 
 # Move the selection in the on-deck display to the left
 MOVE_LEFT_KEY = "Left"  # Left arrow
