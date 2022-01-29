@@ -2,18 +2,15 @@
 # "on deck" from the queue at any given time.
 import os.path
 
-NUM_ON_DECK = 4
-
 # NOTE: If NUM_ON_DECK is >= queue_size, then the # of students on-deck will be set to == queue_size.
 #       This is handled in the get_on_deck() function in student_queue.py
+NUM_ON_DECK = 4
 
 # Don't insert students back into the queue at a certain percentage of the head.
-INSERT_DELAY = 0.35
-
 # NOTE: If the INSERT_DELAY value is such that a student can possibly be reinserted into an on-deck position,
 #       (that is, if INSERT_DELAY < (NUM_ON_DECK / queue_size)), then INSERT_DELAY will be set to (NUM_ON_DECK / queue_size).
 #       This is handled in the randomized_enqueue() function in student_queue.py
-
+INSERT_DELAY = 0.35
 
 # We expect the roster to be a tab-separated file. To accept comma-separated
 # files, change this to ",".

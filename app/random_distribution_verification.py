@@ -54,18 +54,14 @@ class RandomVerification:
         #           So, we should either make a copy of the queue from Roster class, or import a new test queue from Pickle file.
 
         self.test_queue = StudentQueue()
-        self.roster = StudentRoster()
 
         roster_found = False
-        if (os.path.exists('../student_data/student_queue')):
-            self.test_queue.load_queue_from_file('../student_data/student_queue')
+        if (os.path.exists(INTERNAL_QUEUE_LOCATION)):
+            self.test_queue.load_queue_from_file(INTERNAL_QUEUE_LOCATION)
         else:
             while not roster_found:
-                messagebox.showinfo(
-                    message="No roster found! Load a roster file from your computer.")
-                self.import_roster(initial_import=True)
                 roster_found = True
-            self.test_queue.queue_from_roster(self.roster)
+                self.test_queue.queue_from_roster(INTERNAL_ROSTER_LOCATION)
 
     ##############################################################################################################
 
