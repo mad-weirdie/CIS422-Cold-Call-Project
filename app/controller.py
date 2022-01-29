@@ -261,6 +261,3 @@ class Controller:
         # Sort alphabetical by last name, join with commas
         names= sorted(names, key=lambda name: name.split()[1] + name.split()[0])
         return ', '.join(names)
-
-if __name__ == '__main__':
-    main()

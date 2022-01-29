@@ -41,9 +41,9 @@ class Display:
         for i in range(len(on_deck), NUM_ON_DECK):
             names.append("")
 
-        self.main_window.columnconfigure(0, minsize=self.main_window.winfo_screenwidth()/7)
+        self.main_window.columnconfigure(0, minsize=self.main_window.winfo_screenwidth()/(NUM_ON_DECK + 4))
         for i in range(NUM_ON_DECK):
-            self.main_window.columnconfigure(i+1, minsize=self.main_window.winfo_screenwidth()/6)
+            self.main_window.columnconfigure(i+1, minsize=self.main_window.winfo_screenwidth()/(NUM_ON_DECK + 3))
         
         label = Label(self.main_window, bg="white", fg="black",text="Next students:", width=0)
         self.main_window.attributes('-topmost', True)

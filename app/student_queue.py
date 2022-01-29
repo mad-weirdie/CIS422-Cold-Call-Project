@@ -186,7 +186,10 @@ class StudentQueue:
 
 		student: Student object to be added to the queue
 		"""
-		start = int(self.queue_size() * INSERT_DELAY)
+		insert_delay = INSERT_DELAY
+		if (INSERT_DELAY < (NUM_ON_DECK / self.queue_size)):
+			insert_delay = (NUM_ON_DECK / self.queue_size)
+		start = int(self.queue_size() * insert_delay)
 		stop = self.queue_size()
 		rand_index = random.randint(start, stop)
 		self.student_queue.insert(rand_index, student)
