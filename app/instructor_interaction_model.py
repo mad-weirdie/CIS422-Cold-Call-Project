@@ -2,7 +2,7 @@
 
 ###############################################################################
 """
-Script Name:    Instructor-View Controller
+Script Name:    Instructor Interaction Model
 
 Description:    The main controller for the CoolCall Program.
                 This module is the main driver responding to actions from the
@@ -19,16 +19,15 @@ Last Edited:    1/26/2022
 Last Edit By:   Arden Butterfield
 """
 ###############################################################################
-from tkinter import *
 from tkinter import filedialog, messagebox
-import key_sequence
-from gui import *
-from student_queue import *
-from log_manager import *
+from display import Display
+from student_queue import StudentQueue
+from student_roster import StudentRoster
+from log_manager import LogManager
 from constants import *
 ###############################################################################
 
-class Controller:
+class InstructorInteractionModel:
     """
     A class to manage overall logic of the system, and run the various parts of
     the application.
@@ -67,7 +66,6 @@ class Controller:
         # Initialize the objects controlled by the controller class.
         self.display = Display(self)
         self.ensure_directories_exist()
-        self.key_sequence = key_sequence.KeySequence()
         self.roster = StudentRoster()
         self.queue = StudentQueue()
         self.log_manager = LogManager("summary.txt")

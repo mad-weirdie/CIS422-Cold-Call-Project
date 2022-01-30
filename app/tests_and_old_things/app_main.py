@@ -30,7 +30,7 @@ queue = StudentQueue()
 
 """ Main function called on startup """
 def main():
-    raise NameError("Don't use this one, use controller.py instead!")
+    raise NameError("Don't use this one, use instructor_interaction_model.py instead!")
     global on_deck
 
     # TODO: PROMPT INSTRUCTOR FOR FILE INPUT!

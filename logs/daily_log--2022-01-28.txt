@@ -1,0 +1,4 @@
+Daily Log File for Cold Call Assist program.
+2022-01-28
+X	Kyle Kyleson <kkyleson@uoregon.edu>
+	Ian Ianson <iianson@uoregon.edu>

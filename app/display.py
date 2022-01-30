@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from tkinter import *
-from controller import *
+from instructor_interaction_model import *
 from constants import *
 from random_distribution_verification import *
 

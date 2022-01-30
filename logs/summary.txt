@@ -1,0 +1,12 @@
+Summary Performance File for Cold Call Assist program
+|Total Times Called|    |Total Times Flagged|   |First Name|    |Last Name| |UO ID| |Email Address| |Phonetic Spelling| |Reveal Code|   |Dates Called|
+0	0	Frank	Frankson	951000007	ffrankson@uoregon.edu	frank	0	
+1	0	Greg	Gregson	951000010	ggregson@uoregon.edu	grayg	0	2022-01-30 
+1	0	Alex	Alexson	951000001	aaleson@uoregon.edu	a-lex	0	2022-01-30 
+0	0	Ned	Nedson	951000019	nnedson@uoregon.edu	ned	0	
+1	0	Gary	Garyson	951000009	ggaryson@uoregon.edu	gair-ee	0	2022-01-30 
+1	0	Eric	Ericson	951000006	eericson@uoregon.edu	air-ick	0	2022-01-30 
+1	0	Adam	Adamson	951000000	aadamson@uoregon.edu	a-duhm	0	2022-01-30 
+1	0	Kyle	Kyleson	951000016	kkyleson@uoregon.edu	kai-el	0	2022-01-30 
+1	0	Brian	Brianson	951000002	bbrianson@uoregon.edu	bry-in	0	2022-01-30 
+0	0	Ian	Ianson	951000013	iianson@uoregon.edu	ee-in	0	

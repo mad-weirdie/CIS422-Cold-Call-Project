@@ -1,0 +1,10 @@
+Daily Log File for Cold Call Assist program.
+2022-01-30
+	Ned Nedson <nnedson@uoregon.edu>
+	Brian Brianson <bbrianson@uoregon.edu>
+	Alex Alexson <aaleson@uoregon.edu>
+	Greg Gregson <ggregson@uoregon.edu>
+	Eric Ericson <eericson@uoregon.edu>
+	Kyle Kyleson <kkyleson@uoregon.edu>
+	Adam Adamson <aadamson@uoregon.edu>
+	Gary Garyson <ggaryson@uoregon.edu>

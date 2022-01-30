@@ -15,22 +15,9 @@ Last Edit By:   Amy Reichhold
 """
 ###############################################################################
 from student import Student
-from os.path import exists
 from datetime import datetime
 from constants import *
 import os
-
-DAILY_LOG_DIRECTORY = 'Daily Logs'
-DAILY_LOG_FILE_NAME_PREFIX = "daily_log"
-DAILY_LOG_HEADING = "Daily Log File for Cold Call Assist program."
-DAILY_LOG_PATH = os.path.join(
-        f'{os.getenv("HOME")}', 'Cold Call Assist',
-        DAILY_LOG_DIRECTORY)
-
-SUMMARY_LOG_DIRECTORY = 'Summary Logs'
-SUMMARY_LOG_PATH = os.path.join(
-        f'{os.getenv("HOME")}', 'Cold Call Assist',
-        SUMMARY_LOG_DIRECTORY)
 
 class LogManager():
     """
@@ -50,18 +37,13 @@ class LogManager():
             2.  Writes cold call information to the Daily Log Manager
             
         """
-        # check if directory exists
-        if not os.path.exists(SUMMARY_LOG_PATH):
-            os.makedirs(SUMMARY_LOG_PATH)
-        else:
-            # SUMMARY_LOG_PATH exists
-            pass
 
         # create the file name and absolute file name
         summary_filename = LOGS_LOCATION + "/summary.txt"
 
         # open filename in overwrite mode
         summary_file = open(summary_filename, "w")
+
 
         # header
         summary_file.write("Summary Performance File for Cold Call Assist program\n")

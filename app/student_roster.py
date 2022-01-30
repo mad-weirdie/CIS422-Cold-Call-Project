@@ -15,7 +15,7 @@ Last Edited:    1/25/2022
 Last Edit By:   Arden Butterfield
 """
 ###############################################################################
-from student import *
+from student import Student
 from os.path import exists
 from constants import *
 ###############################################################################

@@ -1,7 +1,7 @@
-from controller import Controller
+from instructor_interaction_model import InstructorInteractionModel
 
 def main():
-    Controller()
+    InstructorInteractionModel()
 
 if __name__ == "__main__":
     main()

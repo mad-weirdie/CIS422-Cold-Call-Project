@@ -20,8 +20,8 @@ Last Edit By:   Arden Butterfield
 ################################################################################
 import random
 import pickle
-from student import *
-from student_roster import *
+from student import Student
+from student_roster import StudentRoster
 import os
 from constants import *
 ################################################################################

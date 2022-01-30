@@ -1,15 +1,11 @@
 #!/usr/bin/env python3
 
 from tkinter import filedialog, messagebox
-from turtle import left
-from key_sequence import *
-from student_roster import *
-from student_queue import *
+from key_sequence import KeySequence
+from student_queue import StudentQueue
 from random import randrange
 from constants import *
 from datetime import *
-from os.path import exists
-from student import Student
 
 ##################################################################################################################
 
