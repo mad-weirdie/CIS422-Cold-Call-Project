@@ -9,8 +9,9 @@ Description:    The Student Roster Class for the CoolCall Program.
                 a user-provided data file, converting the read data into
                 Student objects.
 
-Authors:        Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichold,
+			    and Madison Werries
+                
 
 Last Edited:    1/30/2022
 Last Edit By:   Madison Werries

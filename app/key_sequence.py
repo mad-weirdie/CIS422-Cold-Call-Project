@@ -9,7 +9,7 @@ Description:    This module keeps track of the key presses that are sent to it,
                 keystrokes. This is used for tracking if the sequence of keys
                 that triggers Random Distribution Vserification mode have been pressed.
 
-Authors:        Amy Reichold, Quinn Fetrow, Madison Werries, and Arden Butterfield
+Authors:        Arden Butterfield, Quinn Fetrow, Amy Reichold, and Madison Werries
 
 Last Edited:    1/30/2022
 Last Edit By:   Arden Butterfield

@@ -9,7 +9,7 @@ Description:    The system admin or instructor may enter this mode to verify tha
                 to ensure that students are cold called at an even rate compared to
                 other students.
 
-Authors:        Derek Martin, Arden Butterfield, Madison Werries, and Quinn Fetrow
+Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, and Madison Werries
 
 Last Edited:    1/30/2022
 Last Edit By:   Madison Werries

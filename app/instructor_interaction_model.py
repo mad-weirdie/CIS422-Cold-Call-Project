@@ -11,9 +11,9 @@ Description:    The main controller for the CoolCall Program.
                 on this input. This module is also responsible for importing
                 and exporting student data roster files.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichold, 
+                and Madison Werries
+                
 
 Last Edited:    1/30/2022
 Last Edit By:   Madison Werries

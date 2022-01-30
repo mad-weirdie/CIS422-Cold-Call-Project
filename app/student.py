@@ -8,7 +8,7 @@ Description:    The Student Class for the CoolCall Program.
                 This module stores data about an individual student, and keeps
                 track of when they have been called on.
 
-Authors:        Arden Butterfield, Madison Werries, and Quinn Fetrow
+Authors:        Arden Butterfield, Quinn Fetrow, and Madison Werries
 
 Last Edited:    1/25/2022
 Last Edit By:   Arden Butterfield
