@@ -27,8 +27,8 @@ class LogManager():
 
     Attributes
     =======================================================================
-    filename
-        The name of the output file to write to
+    summary_filename
+        The name of the summary file to write to
 
     Methods
     =======================================================================
@@ -40,9 +40,9 @@ class LogManager():
 
     """
 
-    def __init__(self, filename):
-        # filename 
-        self.filename = filename
+    def __init__(self):
+        # Store the full path to the summary file.
+        self.summary_filename = LOGS_LOCATION + "/summary.txt"
 
     def write(self, students, called_student: Student, flagged: bool):
         """ 
@@ -54,11 +54,10 @@ class LogManager():
         flagged: (boolean) has a flag been set for this cold call?
         """
 
-        # create the file name and absolute file name
-        summary_filename = LOGS_LOCATION + "/summary.txt"
+
 
         # open filename in overwrite mode
-        summary_file = open(summary_filename, "w")
+        summary_file = open(self.summary_filename, "w")
 
 
         # header
