@@ -61,7 +61,7 @@ class LogManager():
 
 
         # header
-        summary_file.write("Summary Performance File for Cold Call Assist program\n")
+        summary_file.write("Summary Performance File for the CoolCall Software\n")
         summary_file.write("|Total Times Called|    |Total Times Flagged|   |First Name|    |Last Name| |UO ID| |Email Address| |Phonetic Spelling| |Reveal Code|   |Dates Called|\n")
         
         # print all student information
