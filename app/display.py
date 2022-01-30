@@ -5,10 +5,8 @@
 Script Name:    Cool Call GUI Window Display
 
 Description:    The visual component of the Cold Call application. 
-                The Display class creates the display window and buttons. It alsp
-                formats the text of the display window to be spaced according to the
-                number of students on deck. The Display class also binds arrow key input to 
-                event functions from the main controller (instructor_interaction_model.py).
+                This module creates the display window of the GUI, and binds arrow 
+                key input to event functions from the main controller (instructor_interaction_model.py).
 
 Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
@@ -25,6 +23,11 @@ from random_distribution_verification import *
 ###############################################################################
 
 class Display:
+    """
+    The Display class creates the display window and buttons.
+    It formats the text and buttons of the display window to be spaced according 
+    to the number of students on deck. 
+    """
 
     def __init__(self, controller):
         self.rdv = RandomVerification()
