@@ -2,16 +2,14 @@
 
 ###############################################################################
 """
-Script Name:    
+Script Name:    Random Distrubtion Verification mode
 
 Description:    
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Authors:        Derek Martin, Arden Butterfield, Madison Werries, and Quinn Fetrow
 
 Last Edited:    1/30/2022
-Last Edit By:   Derek Martin
+Last Edit By:   Madison Werries
 """
 ###############################################################################
 from tkinter import filedialog, messagebox
@@ -29,8 +27,6 @@ class RandomVerification:
     #   All 10,000 cold calls should go to the same "Rand Dist" output file.
     #   Overwrite this file each time the instructor enters Random Distribution Verification Mode
 
-    ##############################################################################################################
-
     def __init__(self):
         self.key_sequence = KeySequence()
         self.roster = StudentRoster()
@@ -41,16 +37,12 @@ class RandomVerification:
         self.output_file = open(f"{LOGS_LOCATION}/random_distribution_verification.txt", "w+")
         self.summary_data = {}
 
-    ##############################################################################################################
-
     def add_and_check_for_random_verification(self, event):
         # Will get called by the GUI every time a key is pressed."""
         self.key_sequence.add_key(event.keysym)
         if self.key_sequence.check_for_match():
             self.start()
             self.key_sequence.reset()
-
-    ##############################################################################################################
 
     def start(self):
         do_random_verification = messagebox.askokcancel(
@@ -66,7 +58,6 @@ class RandomVerification:
                 message="Random Distribution Verification Mode has completed successfully. Returning to normal CoolCall mode."
             )
     
-    ##############################################################################################################
     def summarize_RDV(self):
         f = open(f"{LOGS_LOCATION}/random_distribution_verification.txt", "r")
         lines = f.readlines()
@@ -92,8 +83,6 @@ class RandomVerification:
                 roster_found = True
                 self.test_queue.queue_from_roster(INTERNAL_ROSTER_LOCATION)
 
-    ##############################################################################################################
-
     def random_call(self):
         # TODO: call a random student from on deck
         on_deck = self.test_queue.get_on_deck()
@@ -103,8 +92,6 @@ class RandomVerification:
         on_deck = self.test_queue.get_on_deck()
         self.write_line(student)
 
-    ##############################################################################################################
-
     def run(self):
         for i in range(100):
             # call randomization function from student_queue to simulate an application restart
@@ -112,14 +99,10 @@ class RandomVerification:
             for i in range(100):
                 self.random_call()
 
-    ##############################################################################################################
-
     def write_header(self):
         self.output_file.write("Random Distribution Verification Mode\n")
         date_line = f"Tested on {datetime.today().strftime('%Y-%m-%d')}\n\n"
         self.output_file.write(date_line)
-
-    ##############################################################################################################
 
     def write_line(self, student):
         # write line

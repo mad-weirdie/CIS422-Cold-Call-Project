@@ -5,7 +5,7 @@
 Script Name:    Log Manager
 
 Description:    The LogManager Class for the CoolCall Program.
-                This module manages the summary file and records cold call
+                This module manages all output files, including the summary file and records cold call
                 information to daily log files.
 
 Authors:        EnterPrize Labs:

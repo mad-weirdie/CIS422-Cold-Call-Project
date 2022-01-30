@@ -7,11 +7,9 @@ Script Name:    KeySequence class
 Description:    This module keeps track of the key presses that are sent to it,
                 and checks if a certain pattern is met in the most recent
                 keystrokes. This is used for tracking if the sequence of keys
-                that triggers random verification mode have been pressed.
+                that triggers Random Distribution Vserification mode have been pressed.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Authors:        Amy Reichold, Quinn Fetrow, Madison Werries, and Arden Butterfield
 
 Last Edited:    1/30/2022
 Last Edit By:   Arden Butterfield
@@ -46,6 +44,7 @@ class KeySequence:
 
     reset()
         Remove all keystrokes from the key sequence.
+        
     """
     def __init__(self,target=None):
         self.key_sequence = []
