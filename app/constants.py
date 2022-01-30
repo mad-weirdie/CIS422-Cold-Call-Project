@@ -52,7 +52,7 @@ REMOVE_WITH_FLAG_KEY = "Up"  # Up arrow
 REMOVE_WITHOUT_FLAG_KEY = "Down"  # Down arrow
 
 LOGS_LOCATION = (os.path.join(os.path.dirname(__file__), "../logs"))
-DAILY_LOG_HEADING = "Daily Log File for Cold Call Assist program."
+DAILY_LOG_HEADING = "Daily Log File for the CoolCall System"
 DAILY_LOG_FILE_NAME_PREFIX = "daily_log"
 
 # Locations for internal data storage
