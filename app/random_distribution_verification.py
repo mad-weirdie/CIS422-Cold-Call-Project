@@ -46,8 +46,7 @@ class RandomVerification:
     cold calls in order. Both output files are overwritten by every RDV run.
 
     """
-    #   All 10,000 cold calls should go to the same random distribution output file.
-    #   Overwrite this file each time the instructor enters Random Distribution Verification Mode
+
     def __init__(self):
         self.key_sequence = KeySequence()
         self.roster = StudentRoster()
@@ -78,6 +77,7 @@ class RandomVerification:
         do_random_verification = messagebox.askokcancel(
             message="You have entered Randomness Distribution Verification Mode. A dedicated output file for this Mode will be created. If it already exists, it will be overwritten. Do you want to proceed?"
         )
+        # If the user confirms that they want to run RDV, continue
         if do_random_verification:
             self.write_header()
             self.create_test_queue()
@@ -126,6 +126,7 @@ class RandomVerification:
         Call a random student from on-deck. Record this in the log file.
         """
         on_deck = self.test_queue.get_on_deck()
+        # Randomly select an on-deck student
         student_index = randrange(NUM_ON_DECK)
         student = on_deck[student_index]
         self.test_queue.take_off_deck(student)

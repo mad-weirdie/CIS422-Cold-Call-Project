@@ -97,19 +97,26 @@ class Display:
         selection_index: (int) specifies the index of a currently selected student in the on-deck list.
         on_deck: (list) list of students who are currently on-deck.
         """
+        # Create a list of on-deck names for labels
         names = []
         for i in range(len(on_deck)):
             names.append(on_deck[i].get_name())
         for i in range(len(on_deck), NUM_ON_DECK):
             names.append("")
 
+        # Space the text and buttons in the display window according to the number of students on-deck
         self.main_window.columnconfigure(0, minsize=self.main_window.winfo_screenwidth()/(NUM_ON_DECK + 4))
         for i in range(NUM_ON_DECK):
             self.main_window.columnconfigure(i+1, minsize=self.main_window.winfo_screenwidth()/(NUM_ON_DECK + 3))
         
+        # Add the "Next students: " label
         label = Label(self.main_window, bg="white", fg="black",text="Next students:", width=0)
-        self.main_window.attributes('-topmost', True)
         label.grid(row=0, column=0, padx=10, pady=20, sticky="W")
+
+        # Make sure the display window always sits on top of other windows
+        self.main_window.attributes('-topmost', True)
+
+        # Set the color of a selected student name and unselected student names
         for i in range(NUM_ON_DECK):
             if i == selection_index:
                 bg_color = "black"
@@ -122,5 +129,6 @@ class Display:
             self.labels[i].configure(text=names[i])
             self.labels[i].grid(row=0, column=(i+1), sticky="W", rowspan=1)
 
+        # Format the import andd export button locations
         self.import_button.grid(row=0, column=(NUM_ON_DECK + 1), columnspan=1, padx=20)
         self.export_button.grid(row=0, column=(NUM_ON_DECK + 2), columnspan=1, padx=3)

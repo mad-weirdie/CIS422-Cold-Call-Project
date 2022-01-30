@@ -191,6 +191,8 @@ class StudentQueue:
 
 		student: (Student) the student to be added to the queue
 		"""
+		# Set the insert delay such that a student can never be re-inserted into
+		# an on-deck position if the queue_size > NUM_ON_DECK.
 		insert_delay = INSERT_DELAY
 		if (INSERT_DELAY < (NUM_ON_DECK / self.queue_size())):
 			insert_delay = (NUM_ON_DECK / self.queue_size())

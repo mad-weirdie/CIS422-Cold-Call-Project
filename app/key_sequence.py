@@ -47,6 +47,7 @@ class KeySequence:
         
     """
     def __init__(self,target=None):
+        # Set the target sequence
         self.key_sequence = []
         if target:
             self.target_sequence = target
