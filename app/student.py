@@ -22,6 +22,7 @@ from datetime import date
 class Student:
 	"""
 	A class to represent a single student in a course.
+	
 	Attributes
 	============================================================================
 	first_name, last_name, UO_ID, email_address, phonetic_spelling

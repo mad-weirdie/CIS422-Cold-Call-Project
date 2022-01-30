@@ -8,8 +8,7 @@ Description:    The LogManager Class for the CoolCall Program.
                 Initialized in the Instructor Interaction Model, the Log Manager
                 manages log and performance summary file output.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
+Authors:        Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
 Last Edited:    1/30/2022

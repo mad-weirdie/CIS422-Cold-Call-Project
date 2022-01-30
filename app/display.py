@@ -6,8 +6,7 @@ Script Name:    CoolCall GUI Window Display
 
 Description:    The visual component of the CoolCall application.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
+Authors:        Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
 Last Edited:    1/30/2022

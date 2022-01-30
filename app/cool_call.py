@@ -8,7 +8,7 @@ Description:    Run this script at the command line to start the application.
                 This file calls the Instructor Interaction Model which is the
                 main controller for the CoolCall program.
 
-Authors:        Arden Butterfield
+Author:         Arden Butterfield
 
 Last Edited:    1/30/2022
 Last Edit By:   Arden Butterfield
