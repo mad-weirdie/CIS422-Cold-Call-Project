@@ -4,7 +4,11 @@
 """
 Script Name:    Cool Call GUI Window Display
 
-Description:    The visual component of the Cold Call GUI
+Description:    The visual component of the Cold Call application. 
+                The Display class creates the display window and buttons. It alsp
+                formats the text of the display window to be spaced according to the
+                number of students on deck. The Display class also binds arrow key input to 
+                event functions from the main controller (instructor_interaction_model.py).
 
 Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
