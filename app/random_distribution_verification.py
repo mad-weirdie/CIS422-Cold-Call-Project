@@ -17,6 +17,7 @@ Last Edit By:   Derek Martin
 from tkinter import filedialog, messagebox
 from key_sequence import KeySequence
 from student_queue import StudentQueue
+from student_roster import StudentRoster
 from random import randrange
 from constants import *
 from datetime import *
@@ -32,6 +33,13 @@ class RandomVerification:
 
     def __init__(self):
         self.key_sequence = KeySequence()
+        self.roster = StudentRoster()
+        self.roster.import_roster_from_file(INTERNAL_ROSTER_LOCATION)
+        self.names = []
+        for student in self.roster.students:
+            self.names.append(student.get_name())
+        self.output_file = open(f"{LOGS_LOCATION}/random_distribution_verification.txt", "w+")
+        self.summary_data = {}
 
     ##############################################################################################################
 
@@ -49,21 +57,30 @@ class RandomVerification:
             message="You have entered Randomness Distribution Verification Mode. A dedicated output file for this Mode will be created. If it already exists, it will be overwritten. Do you want to proceed?"
         )
         if do_random_verification:
-
-            self.output_file = open(f"{LOGS_LOCATION}/random_distribution_verification.txt", "w+")
             self.write_header()
             self.create_test_queue()
             self.run()
             self.output_file.close()
+            self.summarize_RDV()
     
     ##############################################################################################################
-
+    def summarize_RDV(self):
+        f = open(f"{LOGS_LOCATION}/random_distribution_verification.txt", "r")
+        lines = f.readlines()
+        summary = open(f"{LOGS_LOCATION}/RDV_summary.txt", "w+")
+        for student in self.names:
+            self.summary_data[student] = 0
+        for name in lines:
+            name = name.strip()
+            if name in self.names:
+                    self.summary_data[name] = self.summary_data[name] + 1
+        summary.write("A summary file of the data created during Random Distribution Verification Mode.\n")
+        for student in self.names:
+            summary.write("{0}\t{1}\n".format(student, self.summary_data[student]))
+        f.close()
+            
     def create_test_queue(self):
-        #   NOTE:   After running Rand Dist Verficiation, we probably want the queue to be how it was before.
-        #           So, we should either make a copy of the queue from Roster class, or import a new test queue from Pickle file.
-
         self.test_queue = StudentQueue()
-
         roster_found = False
         if (os.path.exists(INTERNAL_QUEUE_LOCATION)):
             self.test_queue.load_queue_from_file(INTERNAL_QUEUE_LOCATION)
