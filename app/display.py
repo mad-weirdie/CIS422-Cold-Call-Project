@@ -27,6 +27,10 @@ class Display:
 
     Attributes
     =======================================================================
+    rdv
+        RandomVerification() is in the Display because we are mapping key presses
+        to add_and_check_for_random_verification(), which is a RandomVerification() method.
+
     main_window
         This tkinter display window opens upon application start up when called
         by draw_main_screen(). The main_window also binds arrow key input to event
@@ -56,16 +60,19 @@ class Display:
     """
     def __init__(self, controller):
         self.rdv = RandomVerification()
+        # Configure display window
         self.main_window = Tk()
         self.main_window.configure(bg="white")
         self.main_window.title("Cold Call application")
         self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x60')
         self.main_window.resizable(False, False)
+        # Binf key presses to repsective functions
         self.main_window.bind_all("<KeyRelease>", self.rdv.add_and_check_for_random_verification, True)
         self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index)
         self.main_window.bind_all(f"<{MOVE_RIGHT_KEY}>", controller.shift_index)
         self.main_window.bind_all(f"<{REMOVE_WITH_FLAG_KEY}>", controller.remove)
         self.main_window.bind_all(f"<{REMOVE_WITHOUT_FLAG_KEY}>", controller.remove)
+        # Create buttons
         self.import_button = Button(
             self.main_window,
             text='Import roster',
@@ -76,6 +83,7 @@ class Display:
             text='Export roster',
             command=controller.export_roster
         )
+        # Configure labels
         self.labels = [
             Label(self.main_window, bg="white", fg="black", text="", width=0) for i
             in range(NUM_ON_DECK)]
