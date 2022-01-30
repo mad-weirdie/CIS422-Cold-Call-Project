@@ -2,9 +2,9 @@
 
 ###############################################################################
 """
-Script Name:    
+Script Name:    Cool Call GUI Window Display
 
-Description:    
+Description:    The visual component of the Cold Call GUI
 
 Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,

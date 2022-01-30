@@ -6,9 +6,7 @@ Description:    We have located numerical parameters and keystroke/button assign
                 to this source code file. They are easily changeable by a programmer during 
                 development and maintenance of the code.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Authors:        Arden Butterfield and Derek Martin
 
 Last Edited:    1/28/2022
 Last Edit By:   Derek Martin
