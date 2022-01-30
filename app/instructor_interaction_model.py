@@ -24,6 +24,7 @@ from student_queue import StudentQueue
 from student_roster import StudentRoster
 from log_manager import LogManager
 from constants import *
+import random
 ###############################################################################
 
 class InstructorInteractionModel:
@@ -100,6 +101,9 @@ class InstructorInteractionModel:
         # display window visible and waits for input from the keyboard/button presses,
         # which trigger the event function that each key is mapped to.
         self.display.main_window.mainloop()
+
+        # We want to reseed the random number generator at every startup.
+        random.seed()
 
     def ensure_directories_exist(self):
         """
