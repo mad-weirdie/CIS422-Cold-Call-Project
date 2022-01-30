@@ -34,7 +34,7 @@ class LogManager():
     Methods
     =======================================================================
     write(students, called_student, flagged)
-        Called from the Instructor Interaction Model each toime a student is
+        Called from the Instructor Interaction Model each time a student is
         cold called. 
 
     write_logfile(student, flagged)
