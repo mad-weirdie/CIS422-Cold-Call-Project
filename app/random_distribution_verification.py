@@ -62,6 +62,9 @@ class RandomVerification:
             self.run()
             self.output_file.close()
             self.summarize_RDV()
+            messagebox.showinfo(
+                message="Random Distribution Verification Mode has completed successfully. Returning to normal CoolCall mode."
+            )
     
     ##############################################################################################################
     def summarize_RDV(self):
