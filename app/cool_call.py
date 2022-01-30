@@ -2,11 +2,11 @@
 
 ###############################################################################
 """
-Script Name:    Cool Call Application Start Up 
+Script Name:    CoolCall Application Start Up 
 
 Description:    Run this script at the command line to start the application.
                 This file calls the Instructor Interaction Model which is the
-                main controller for the Cool Call program.
+                main controller for the CoolCall program.
 
 Authors:        Arden Butterfield
 
