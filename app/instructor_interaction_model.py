@@ -41,23 +41,40 @@ class InstructorInteractionModel:
 
     Methods
     =======================================================================
+    ensure_directories_exist()
+        Verify that specified directories exist.
+
     initial_loads()
         Called upon start-up: this function loads data into the queue and roster
         objects.
+
+    _initial_load_roster()
+        If the roster is not found in the internal storage location, or if the stored
+        roster is not parseable, the system continues to prompt the user to import a 
+        roster until one is successfully imported.
+
+    _initial_load_queue()
+        Load a queue into memory, either by loading it from the internal pickle
+        file, or by creating a new queue from the roster. 
+
     shift_index()
         Called by key presses: this function shifts the index of the currently
         selected on-deck student in order to select a new student.
+
     remove()
         Called by key presses: this function removes the selected student from
         on-deck, fascilitating a cold call.
+
     import_roster()
         Called if the user presses the import roster button, or upon start-up of 
         the program if there is no roster found by the system. Prompts the user to
         import a roster, notifies the user if the selected roster is not formatted
         correctly, and imports the roster into the system. 
+
     export_roster()
         Prompts user to select a directory, and exports the currently-loaded 
         roster file to that directory.
+
     _format_names()
         Helper function for import_roster(): formats the names of a list of
         Student objects.
@@ -86,6 +103,9 @@ class InstructorInteractionModel:
         self.display.main_window.mainloop()
 
     def ensure_directories_exist(self):
+        """
+        Verify that specified directories exist.
+        """
         try:
             os.makedirs(os.path.join(
                 os.path.dirname(__file__), 'student_data'))
@@ -102,6 +122,7 @@ class InstructorInteractionModel:
         Upon start-up, the controller needs to load a roster and queue into
         memory. If there is a roster stored internally, we use that one,
         otherwise the system prompts the user to import a roster.
+
         Likewise, if there is already a queue stored internally, we load that
         one to memory; Otherwise, we make a new queue from the roster.
 
@@ -134,10 +155,12 @@ class InstructorInteractionModel:
     def _initial_load_queue(self, make_new):
         """
         Load a queue into memory, either by loading it from the internal pickle
-        file, or by creating a new queue from the roster. If we just imported a
-        new roster, we certainly want to make a new queue, or else the queue
-        might not match the new roster. Otherwise, we only want to make a new
-        queue if we cannot load the queue from the file successfully.
+        file, or by creating a new queue from the roster. 
+        
+        - If we just imported a new roster, we certainly want to make a new queue 
+          or else the queue might not match the new roster. 
+        - If we did not just import a new roster, then we only want to make a new
+          queue if we cannot load the queue successfully from file.
 
         make_new: (boolean) Should we make a new queue by default?
         """
@@ -146,8 +169,8 @@ class InstructorInteractionModel:
 
     def shift_index(self, event):
         """
-        Shift the selection index left or right, depending on which key is
-        pressed. This method is automatically called every time the left or
+        Shift the selection index to the left or right, depending on which key
+        is pressed. This method is automatically called every time the left or
         right keys (or other keys, as defined in constants.py) are pressed.
 
         event: the Tkinter event of the keypress.
@@ -163,7 +186,7 @@ class InstructorInteractionModel:
     def remove(self, event):
         """
         Remove the selected student from the queue, with or without flagging
-        them, depending on which keys are pressed. This method is automatically
+        them, depending on which key is pressed. This method is automatically
         called every time the up or down keys (or other keys, as defined in
         constants.py) are pressed.
 
@@ -186,14 +209,14 @@ class InstructorInteractionModel:
         """
         Prompt the user through the steps for importing a roster.
         This function is called by the user pressing the "Import roster" button
-        on screen.
+        on display window.
 
-        initial_import: Is there no roster yet on file (initial_import is true)?
-        In that case, the messages shown to the user are slightly
-        different; instead of notifying about which students are changed, we
-        notify the user the full list of students in the roster.
+        initial_import: (boolean) Is there no roster yet on file (initial_import=True)?
+        In that case, the messages shown to the user are slightly different;
+        instead of notifying about which students are changed, we notify the user
+        of the full list of students in the roster.
 
-        Returns: True if we successfully import a roster, False otherwise.
+        Returns: (boolean) True if we successfully import a roster, False otherwise.
         """
         print("Import roster")
         filename = filedialog.askopenfilename(
@@ -255,7 +278,9 @@ class InstructorInteractionModel:
         Helper function for message dialogs when importing a roster.
         Formats a list of names into alphabetical order by last name.
         Separates them with commas and spaces.
-        students is a list of Student objects."""
+        
+        students: (list) a list of Student objects.
+        """
         # Converting to set removes duplicates
         names = list(set([student.get_name() for student in
                      students]))
