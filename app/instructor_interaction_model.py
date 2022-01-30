@@ -8,8 +8,8 @@ Description:    The main controller for the CoolCall Program.
                 This module is the main driver responding to actions from the
                 user. This includes receiving keyboard input, and calling the
                 StudentQueue to remove/re-add students from the Queue based
-                on this input. The module is also responsible for the importing
-                and exporting of student data roster files.
+                on this input. This module is also responsible for importing
+                and exporting student data roster files.
 
 Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
@@ -29,36 +29,37 @@ from constants import *
 
 class InstructorInteractionModel:
     """
-    A class to manage overall logic of the system, and run the various parts of
-    the application.
+    A class to manage the fundamental logic of the system, and run 
+    various parts of the application by calling their respective functions.
 
     Attributes
     =======================================================================
     index
-        the index of the currently selected student in the on-deck display. For
+        the index of the currently selected student in the on deck display. For
         instance, if the student furthest to the left was selected, this would
         be the integer 0.
 
     Methods
     =======================================================================
     initial_loads()
-        Called on start-up, this function loads data into the queue and roster
+        Called upon start-up: this function loads data into the queue and roster
         objects.
     shift_index()
-        Called by key presses, this function shifts the index of which
-        on-deck student is currently selected.
+        Called by key presses: this function shifts the index of the currently
+        selected on-deck student in order to select a new student.
     remove()
-        Called by key presses, this function removes the selected student from
-        on-deck.
+        Called by key presses: this function removes the selected student from
+        on-deck, fascilitating a cold call.
     import_roster()
-        Prompts the user to import a roster, notifies them if the roster is not
-        formatted correctly, and imports the roster. Called if the user presses
-        the import roster button, or on start-up of the program if there is no
-        roster found internally.
+        Called if the user presses the import roster button, or upon start-up of 
+        the program if there is no roster found by the system. Prompts the user to
+        import a roster, notifies the user if the selected roster is not formatted
+        correctly, and imports the roster into the system. 
     export_roster()
-        Prompts user for a directory, and exports the roster to that directory.
+        Prompts user to select a directory, and exports the currently-loaded 
+        roster file to that directory.
     _format_names()
-        Helper function for import roster, formats the names of a list of
+        Helper function for import_roster(): formats the names of a list of
         Student objects.
 
 """
@@ -76,12 +77,12 @@ class InstructorInteractionModel:
         # We need to load the roster and queue into memory
         self.initial_loads()
 
-        # At start-up, we need to tell the screen what to display.
+        # Upon start-up, we need to tell the screen what to display.
         self.display.draw_main_screen(self.index, self.queue.get_on_deck())
 
         # This starts the main loop in the GUI. This continuously keeps the
-        # screen visible and waits for input from the keyboard/button presses,
-        # which trigger the functions those keys are mapped to.
+        # display window visible and waits for input from the keyboard/button presses,
+        # which trigger the event function that each key is mapped to.
         self.display.main_window.mainloop()
 
     def ensure_directories_exist(self):
@@ -98,13 +99,13 @@ class InstructorInteractionModel:
 
     def initial_loads(self):
         """
-        At start-up, the controller needs to load a roster and queue into
+        Upon start-up, the controller needs to load a roster and queue into
         memory. If there is a roster stored internally, we use that one,
         otherwise the system prompts the user to import a roster.
         Likewise, if there is already a queue stored internally, we load that
         one to memory; Otherwise, we make a new queue from the roster.
 
-        It's important that the roster is loaded before the queue: as the only
+        It's important that the roster is loaded before the queue because the only
         way to make a new StudentQueue object is from a StudentRoster.
         """
         new_roster = self._inital_load_roster()
@@ -112,12 +113,12 @@ class InstructorInteractionModel:
 
     def _inital_load_roster(self):
         """
-        Load a roster into memory. If the roster is not found in the internal
-        storage location, or the stored roster is not parseable, the system
-        prompts the user to import a roster until one is successfully
+        Load a student roster into memory. If the roster is not found in the
+        internal storage location, or if the stored roster is not parseable, the
+        system continues to prompt the user to import a roster until one is successfully
         imported.
 
-        returns: did we make a new roster, instead of loading one from internal
+        returns: (boolean) did we make a new roster, instead of loading one from internal
         storage?
         """
         new_roster = False
@@ -188,7 +189,7 @@ class InstructorInteractionModel:
         on screen.
 
         initial_import: Is there no roster yet on file (initial_import is true)?
-        In that case, the messages that the system shows the user are slightly
+        In that case, the messages shown to the user are slightly
         different; instead of notifying about which students are changed, we
         notify the user the full list of students in the roster.
 

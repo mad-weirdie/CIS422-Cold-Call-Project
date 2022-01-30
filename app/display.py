@@ -24,7 +24,7 @@ class Display:
     """
     The Display class creates the display window and buttons.
     It formats the text and buttons of the display window to be spaced according 
-    to the number of students on deck. 
+    to the number of students on-deck. 
 
     Attributes
     =======================================================================
@@ -53,8 +53,8 @@ class Display:
     draw_main_screen()
         This function displays the main_window to the screen along with labels and
         import/export buttons.
-    """
 
+    """
     def __init__(self, controller):
         self.rdv = RandomVerification()
         self.main_window = Tk()
@@ -87,8 +87,8 @@ class Display:
         This function displays the main_window to the screen along with labels and
         import/export buttons.
 
-        selection_index: (int) specifies the index of a currently selected student in the list.
-        on_deck: (list) list of students who are currently on deck.
+        selection_index: (int) specifies the index of a currently selected student in the on-deck list.
+        on_deck: (list) list of students who are currently on-deck.
         """
         names = []
         for i in range(len(on_deck)):
