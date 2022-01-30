@@ -12,9 +12,8 @@ Description:    The main controller for the CoolCall Program.
                 and exporting student data roster files.
 
 Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichold, 
-                and Madison Werries
+                Madison Werries
                 
-
 Last Edited:    1/30/2022
 Last Edit By:   Madison Werries
 """
