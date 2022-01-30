@@ -1,12 +1,25 @@
 #!/usr/bin/env python3
 
+###############################################################################
+"""
+Script Name:    
+
+Description:    
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/30/2022
+Last Edit By:   Derek Martin
+"""
+###############################################################################
 from tkinter import filedialog, messagebox
 from key_sequence import KeySequence
 from student_queue import StudentQueue
 from random import randrange
 from constants import *
 from datetime import *
-
 ##################################################################################################################
 
 class RandomVerification:

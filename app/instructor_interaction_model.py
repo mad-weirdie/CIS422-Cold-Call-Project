@@ -15,8 +15,8 @@ Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
-Last Edited:    1/26/2022
-Last Edit By:   Arden Butterfield
+Last Edited:    1/30/2022
+Last Edit By:   Madison Werries
 """
 ###############################################################################
 from tkinter import filedialog, messagebox

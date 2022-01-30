@@ -1,9 +1,24 @@
 #!/usr/bin/env python3
+
+###############################################################################
+"""
+Script Name:    
+
+Description:    
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/30/2022
+Last Edit By:   Quinn Fetrow
+"""
+###############################################################################
 from tkinter import *
 from instructor_interaction_model import *
 from constants import *
 from random_distribution_verification import *
-
+###############################################################################
 
 class Display:
 

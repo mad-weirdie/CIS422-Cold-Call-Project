@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 ###############################################################################
 """
 Script Name:    Log Manager
@@ -11,13 +13,14 @@ Authors:        EnterPrize Labs:
                 Quinn Fetrow, and Derek Martin
 
 Last Edited:    1/30/2022
-Last Edit By:   Amy Reichhold
+Last Edit By:   Amy Reichold
 """
 ###############################################################################
 from student import Student
 from datetime import datetime
 from constants import *
 import os
+###############################################################################
 
 class LogManager():
     """

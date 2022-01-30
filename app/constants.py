@@ -3,7 +3,7 @@
 Script Name:    Constants and Numerical Parameters
 
 Description:    We have located numerical parameters and keystroke/button assignments 
-                in this source code file. They are easily changeable by a programmer during 
+                to this source code file. They are easily changeable by a programmer during 
                 development and maintenance of the code.
 
 Authors:        EnterPrize Labs:
@@ -11,7 +11,7 @@ Authors:        EnterPrize Labs:
                 Quinn Fetrow, and Derek Martin
 
 Last Edited:    1/28/2022
-Last Edit By:   Arden Butterfield
+Last Edit By:   Derek Martin
 """
 ###############################################################################
 

@@ -1,8 +1,25 @@
+#!/usr/bin/env python3
+
+###############################################################################
+"""
+Script Name:    
+
+Description:    
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/25/2022
+Last Edit By:   Amy Reichold
+"""
+###############################################################################
+from student import Student
+###############################################################################
+
 """
 Set of tests for the student class
 """
-
-from student import Student
 
 a = Student(
     "First", "Last", "950000000", "student@uoregon.edu", "first", "0")

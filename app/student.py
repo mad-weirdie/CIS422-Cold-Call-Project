@@ -1,6 +1,8 @@
+#!/usr/bin/env python3
+
 ###############################################################################
 """
-Script Name:    Student  Class
+Script Name:    Student Class
 
 Description:    The Student Class for the CoolCall Program.
                 This module stores data about an individual student, and keeps
@@ -15,6 +17,7 @@ Last Edit By:   Arden Butterfield
 """
 ###############################################################################
 from datetime import date
+###############################################################################
 
 class Student:
 	"""
