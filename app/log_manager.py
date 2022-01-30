@@ -1,9 +1,19 @@
+###############################################################################
 """
-01/16/2021
+Script Name:    Log Manager
 
-Manages the performance summary.txt and keeps track
-of student data
+Description:    The LogManager Class for the CoolCall Program.
+                This module manages the summary file and records cold call
+                information to daily log files.
+
+Authors:        EnterPrize Labs:
+                Arden Butterfield, Madison Werries, Amy Reichold,
+                Quinn Fetrow, and Derek Martin
+
+Last Edited:    1/30/2022
+Last Edit By:   Amy Reichhold
 """
+###############################################################################
 from student import Student
 from os.path import exists
 from datetime import datetime
