@@ -184,7 +184,7 @@ class InstructorInteractionModel:
     def import_roster(self, initial_import=False):
         """
         Prompt the user through the steps for importing a roster.
-        This function is called by the user pressing the "Import Roster" button
+        This function is called by the user pressing the "Import roster" button
         on screen.
 
         initial_import: Is there no roster yet on file (initial_import is true)?
@@ -235,8 +235,8 @@ class InstructorInteractionModel:
 
     def export_roster(self):
         """
-        Prompts the user to chose a directory, then exports the directory to
-        that location.
+        Prompt the user to choose a directory, then export the currently-loaded
+        roster file to that location.
         """
         print("Export roster")
         dir_name = filedialog.askdirectory(

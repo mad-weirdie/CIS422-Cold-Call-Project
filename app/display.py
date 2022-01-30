@@ -4,9 +4,7 @@
 """
 Script Name:    Cool Call GUI Window Display
 
-Description:    The visual component of the Cold Call application. 
-                This module creates the display window of the GUI, and binds arrow 
-                key input to event functions from the main controller (instructor_interaction_model.py).
+Description:    The visual component of the Cold Call application.
 
 Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
@@ -27,6 +25,34 @@ class Display:
     The Display class creates the display window and buttons.
     It formats the text and buttons of the display window to be spaced according 
     to the number of students on deck. 
+
+    Attributes
+    =======================================================================
+    main_window
+        This tkinter display window opens upon application start up when called
+        by draw_main_screen(). The main_window also binds arrow key input to event
+        functions from the Instructor Interaction Model.
+        
+    import_button
+        This button is displayed on the window with the text: "Import roster".
+        Clicking the button calls the import_roster function from the Instructor 
+        Interaction Model, which prompts the user to specify the location of a class 
+        roster file to import.
+
+    export_button
+        This button is displayed on the window with the text: "Export roster".
+        Clicking the button calls the export_roster function from the Instructor 
+        Interaction Model, which prompts the user to choose a directory, then exports
+        the currently-loaded roster file to that location.
+
+    labels
+        Sets display window text and buttons to a specified color and format. 
+
+    Methods
+    =======================================================================
+    draw_main_screen()
+        This function displays the main_window to the screen along with labels and
+        import/export buttons.
     """
 
     def __init__(self, controller):
@@ -57,6 +83,13 @@ class Display:
 
 
     def draw_main_screen(self, selection_index, on_deck):
+        """
+        This function displays the main_window to the screen along with labels and
+        import/export buttons.
+
+        selection_index: (int) specifies the index of a currently selected student in the list.
+        on_deck: (list) list of students who are currently on deck.
+        """
         names = []
         for i in range(len(on_deck)):
             names.append(on_deck[i].get_name())
