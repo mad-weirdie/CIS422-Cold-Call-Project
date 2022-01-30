@@ -9,8 +9,7 @@ Description:    The Student Roster Class for the CoolCall Program.
                 a user-provided data file, converting the read data into
                 Student objects.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
+Authors:        Arden Butterfield, Madison Werries, Amy Reichold,
                 Quinn Fetrow, and Derek Martin
 
 Last Edited:    1/30/2022
@@ -23,7 +22,8 @@ from constants import *
 ###############################################################################
 
 class StudentRoster:
-	""" A class to represent all the students currently in a course.
+	""" 
+	A class to represent all the students currently enrolled in a course.
 
 		Attributes
 		=======================================================================
@@ -35,9 +35,9 @@ class StudentRoster:
 		Methods
 		=======================================================================
 		import_roster_from_file(filename)
-			Creates a new roster from student data in the provided file.
+			Creates a new roster from student data in the specified file.
 		save_internally()
-			Saves the data in the roster to an internal file.
+			Saves the roster data to an internal file.
 		compare()
 			Compares the contents of two rosters, returning the differences.
 		export_roster_to_file(directory)
@@ -52,8 +52,8 @@ class StudentRoster:
 			Returns any errors with the format of a provided roster file.
 	"""
 	
+	# Constructs an empty student roster object.
 	def __init__(self):
-		""" Constructs an empty student roster object. """
 		self.students = set()
 		try:
 			with open(INTERNAL_ROSTER_LOCATION, "r") as f:
@@ -62,11 +62,12 @@ class StudentRoster:
 			self.lines = []
 
 	def import_roster_from_file(self, filename):
-		""" Creates a new roster from student data in the provided file, if
-		possible, or return a descriptive error.
-		filename: (str) The file path of the roster we want to import.
+		"""
+		Creates a new roster from student data in the specified file.
+		If not possible, return a descriptive error.
 
-		Returns a string with a descriptive error, or the empty string if the
+		filename: (string) The file path of the roster we want to import.
+		returns: (string) a descriptive error, or an empty string if the
 		import is successful.
 		"""
 		try:
@@ -104,26 +105,36 @@ class StudentRoster:
 		return ""
 
 	def save_internally(self):
-		""" Saves the data in the roster to an internal file. """
+		""" 
+		Saves the roster data to an internal file. 
+		"""
 		with open(INTERNAL_ROSTER_LOCATION, "w") as internal_file:
 			for line in self.lines:
 				internal_file.write(line)
 
 	def compare(self, other_roster):
-		""" Compares the contents of two rosters.
-		other_roster: a roster object
+		""" 
+		Compares the contents of two rosters.
 
-		Returns a set of student objects that are present in one of the rosters
-		student lists, but not in the others. (Note that the "same student"
-		might be returned twice by this function. If we change the email address,
-		say, of a student between two rosters, and then compare them, it will
-		return the student twice in the set: Once with the old email address, and
-		once with the new email address.)"""
+		other_roster: (Roster) a separate roster to compare with self
+		returns: a set of student objects that are present in one roster
+		but not in the other. 
+		
+		(NOTE -- the "same student" might be returned twice by this function. 
+		For example, if we change the email address of a student between two rosters
+		and then compare them, it will return the student twice in the set: 
+		Once with the old email address, and once with the new email address)
+		"""
 		return self.students.symmetric_difference(other_roster.students)
 
 	def export_roster_to_file(self, directory):
-		""" Exports the roster to a file, called roster.txt or roster<i>.txt,
-		in the specified directory."""
+		""" 
+		Exports the roster to a file, called roster.txt or roster<i>.txt,
+		in the specified directory.
+
+		directory: (string)
+		returns: (string) the path of the specified directory
+		"""
 		path = self._get_path_name(directory)
 		with open(path, "w") as f:
 			for line in self.lines:
@@ -133,9 +144,12 @@ class StudentRoster:
 	def _get_path_name(self, directory):
 		"""
 		To avoid overwriting data, we want to find an unused filename to
-		save the roster to. Ideally, it should be <directory>/roster.txt,
-		but if that is unavailable, it should be <directory>/roster<i>.txt for
+		save the roster to. Ideally, it should be <directory>/roster.txt.
+		If that is unavailable, it should be <directory>/roster<i>.txt for
 		the smallest possible natural number <i>
+
+		directory: (string)
+		returns: (string) the path of the specified directory
 		"""
 		path = f"{directory}/roster.txt"
 		found = False
@@ -149,26 +163,39 @@ class StudentRoster:
 		return path
 
 	def add_student(self, student):
-		""" Adds the specified Student object to the roster. """
+		"""
+		Add the specified Student object to the roster.
+
+		student: (Student)
+		"""
 		self.students.add(student)
 
 	def remove_student(self, student):
-		""" Removes the specified Student object from the roster.
-		Returns true if the student is found in the roster, false otherwise."""
+		"""
+		Remove the specified Student object from the roster.
+
+		student: (Student)
+		returns: (boolen) True if the student is found in the roster, False otherwise.
+		"""
 		if student in self.students:
 			self.students.remove(student)
 			return True
 		return False
 
 	def num_students(self):
-		""" Returns the number of students currently in the roster. """
+		""" 
+		returns: (int) the number of students currently in the roster. 
+		"""
 		return len(self.students)
 
 	def get_errors(self):
-		""" This function checks that a roster file is in the correct format.
-		Namely, it must contain the correct number of fields (6), and that
-		these fields are of the correct type and/or format. """
+		""" 
+		This function checks that a roster file is in the correct format.
+		Namely, it must contain the correct number of fields (6). 
+		The function checks that these fields are of the correct type and/or format. 
 
+		returns: (string) a descriptive error message, or an empty string
+		"""
 		# The first line of the roster file is a comment, and so is not parsed
 		# when reading in student data.
 		for line in self.lines[1:]:
