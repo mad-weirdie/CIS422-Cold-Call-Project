@@ -5,8 +5,8 @@
 Script Name:    Log Manager
 
 Description:    The LogManager Class for the CoolCall Program.
-                This module manages all output files, including the summary file and records cold call
-                information to daily log files.
+                Initialized in the Instructor Interaction Model, the Log Manager
+                manages log and performance summary file output.
 
 Authors:        EnterPrize Labs:
                 Arden Butterfield, Madison Werries, Amy Reichold,
@@ -24,8 +24,21 @@ import os
 
 class LogManager():
     """
-    Initialized in the main controller, the Log Manager manages log file and performance summary file
-    output.
+    A class for managing output files.
+
+    Attributes
+    =======================================================================
+    filename
+        The name of the output file to write to
+
+    Methods
+    =======================================================================
+    write(students, called_student, flagged)
+        Called from the Instructor Interaction Model each toime a student is
+        cold called. 
+
+    write_logfile(student, flagged)
+
     """
 
     def __init__(self, filename):
@@ -34,11 +47,12 @@ class LogManager():
 
     def write(self, students, called_student: Student, flagged: bool):
         """ 
-        Called from the main controller each time a student is cold called, handles file output:
-
-            1.  Overwrites previous summary performance file (if it exists) with updated information
-            2.  Writes cold call information to the Daily Log Manager
+        Overwrites previous summary performance file (if it exists) with updated information.
+        Writes cold call information to the Daily Log Manager.
             
+        students: (list) a list of Student objects
+        called_student: (Student) a specific Student that has been cold called
+        flagged: (boolean) has a flag been set for this cold call?
         """
 
         # create the file name and absolute file name
@@ -69,10 +83,13 @@ class LogManager():
             
     def write_logfile(self, student, flagged: bool):
         """
-        Writes a line to the daily log file for a cold call for a student,
-        where the flagged argument determines whether to flag the cold call
-        with an 'X' or not. Creates daily log file if necessary with a heading
+        Writes a line to the daily log file, recording a cold call.
+        The flagged argument determines whether to flag the cold call
+        with an 'X' or not.Creates daily log file if necessary with a heading
         and today's date.
+
+        student: (Student) a specific Student that has been cold called
+        flagged: (boolean) has a flag been set for this cold call?
         """
         # get date for creating the file name
         date = datetime.today().strftime('%Y-%m-%d')
@@ -80,6 +97,7 @@ class LogManager():
         # create the file name and absolute file name
         log_file_name = f'{LOGS_LOCATION}/{DAILY_LOG_FILE_NAME_PREFIX}--{date}.txt'
 
+        # this code has been commented out
         """# check if directory exists
         if not os.path.exists(DAILY_LOG_PATH):
             os.makedirs(DAILY_LOG_PATH)

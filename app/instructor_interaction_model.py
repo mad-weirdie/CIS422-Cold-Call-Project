@@ -53,19 +53,19 @@ class InstructorInteractionModel:
         roster is not parseable, the system continues to prompt the user to import a 
         roster until one is successfully imported.
 
-    _initial_load_queue()
+    _initial_load_queue(make_new)
         Load a queue into memory, either by loading it from the internal pickle
         file, or by creating a new queue from the roster. 
 
-    shift_index()
+    shift_index(event)
         Called by key presses: this function shifts the index of the currently
         selected on-deck student in order to select a new student.
 
-    remove()
+    remove(event)
         Called by key presses: this function removes the selected student from
         on-deck, fascilitating a cold call.
 
-    import_roster()
+    import_roster(initial_import)
         Called if the user presses the import roster button, or upon start-up of 
         the program if there is no roster found by the system. Prompts the user to
         import a roster, notifies the user if the selected roster is not formatted
@@ -75,7 +75,7 @@ class InstructorInteractionModel:
         Prompts user to select a directory, and exports the currently-loaded 
         roster file to that directory.
 
-    _format_names()
+    _format_names(students)
         Helper function for import_roster(): formats the names of a list of
         Student objects.
 

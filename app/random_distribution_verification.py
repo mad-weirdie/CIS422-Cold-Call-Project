@@ -2,14 +2,18 @@
 
 ###############################################################################
 """
-Script Name:    Random Distrubtion Verification mode
+Script Name:    Random Distrubtion Verification Mode
 
-Description:    
+Description:    The system admin or instructor may enter this mode to verify that
+                the queue randomization functionality is working properly. This is
+                to ensure that students are cold called at an even rate compared to
+                other students.
 
 Authors:        Derek Martin, Arden Butterfield, Madison Werries, and Quinn Fetrow
 
 Last Edited:    1/30/2022
 Last Edit By:   Madison Werries
+
 """
 ###############################################################################
 from tkinter import filedialog, messagebox
@@ -24,9 +28,11 @@ from datetime import *
 class RandomVerification:
     #   Restart the program 100 times
     #   Issue 100 random cold calls each time the program restarts (10,000 total)
-    #   All 10,000 cold calls should go to the same "Rand Dist" output file.
+    #   All 10,000 cold calls should go to the same random distribution output file.
     #   Overwrite this file each time the instructor enters Random Distribution Verification Mode
-
+    """
+    
+    """
     def __init__(self):
         self.key_sequence = KeySequence()
         self.roster = StudentRoster()
