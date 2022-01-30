@@ -2,13 +2,12 @@
 
 ###############################################################################
 """
-Script Name:    
+Script Name:    CoolCall Testing Script
 
-Description:    
+Description:    This script can be run at the command line to test the program
+                during development.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Author:         Amy Reichold
 
 Last Edited:    1/25/2022
 Last Edit By:   Amy Reichold
@@ -17,18 +16,23 @@ Last Edit By:   Amy Reichold
 from student import Student
 ###############################################################################
 
-"""
-Set of tests for the student class
-"""
+# Set of tests for the student class
+
 
 a = Student(
     "First", "Last", "950000000", "student@uoregon.edu", "first", "0")
 b = Student(
     "First", "Last", "950000000", "student@uoregon.edu", "first", "0")
+
+# different reveal code
 c = Student(
     "First", "Last", "950000000", "student@uoregon.edu", "first", "1")
+
+# different first name
 d = Student(
     "Newname", "Last", "950000000", "student@uoregon.edu", "first", "1")
+
+# different last name
 e = Student(
     "Newname", "Newlast", "950000000", "student@uoregon.edu", "first", "1")
 

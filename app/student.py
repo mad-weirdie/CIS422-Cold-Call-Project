@@ -8,9 +8,7 @@ Description:    The Student Class for the CoolCall Program.
                 This module stores data about an individual student, and keeps
                 track of when they have been called on.
 
-Authors:        EnterPrize Labs:
-                Arden Butterfield, Madison Werries, Amy Reichold,
-                Quinn Fetrow, and Derek Martin
+Authors:        Arden Butterfield, Madison Werries, and Quinn Fetrow
 
 Last Edited:    1/25/2022
 Last Edit By:   Arden Butterfield
@@ -27,28 +25,35 @@ class Student:
 	============================================================================
 	first_name, last_name, UO_ID, email_address, phonetic_spelling
 		The corresponding information about the student, stored as a string
+
 	reveal_code
-		If the student will be included "on-deck". 0 means the student will be
+		If the student will be included on-deck. 0 means the student will be
 		included, another number means the student will not be included.
+
 	total_num_flags
 		The number of times a student has "flagged" when called on.
+
 	dates_called
-		A list of datetime objects, one for each time the student has been called
-		on, with the day that call took place on.
+		A list of datetime objects, one for each date/time that a student has 
+		been cold called..
+
 	Methods
 	============================================================================
 	call_on(flag)
-		Records that was the student was called on during the current day, and
-		increments the number of times the student has been called on with a
-		flag, if flag is true.
+		Records that the student was called on during the current day, and
+		increments the number of times the student has been called on (with a
+		flag if flagged=True).
+
 	get_name()
 		Returns a formatted string of the student
-	include_on_deck()
-		Return a boolean: is this student marked to be included on-deck?
 
-	This class supports comparison for equality, and can be hashed, to use in a
+	include_on_deck()
+		Returns a boolean: is this student marked to be included on-deck?
+
+	This class supports comparison for equality, and can be hashed to use in a
 	Python set.
 	"""
+
 	def __init__(self, fname, lname, sid, email, phonetic, rcode):
 		""" All fields should be passed in as strings."""
 		self.first_name = fname
@@ -62,16 +67,21 @@ class Student:
 		
 	def call_on(self, flag):
 		"""
-		Stores a new instance of the student being called on. This method adds
-		the current date to the list of dates called, and increments the number
-		of times the student has been called on with a flag, if applicable.
+		Stores a new instance of the student being called on. 
+		This method adds the current date to the list of dates called, 
+		and increments the number of times that student has been called on 
+		(with a flag, if applicable).
+
+		flag: (boolen)
 		"""
 		if(flag):
 			self.total_num_flags += 1
 		self.dates_called.append(date.today())
 	
 	def get_name(self):
-		""" Returns a formatted string of the student"""
+		""" 
+		Returns a formatted string of the student
+		"""
 		return self.first_name + " " + self.last_name
 
 	def include_on_deck(self):
@@ -83,11 +93,12 @@ class Student:
 		# The __members, __eq__, and __hash__ methods are based on code by Jonas Adler (2007)
 		# published as a Stack Overflow answer here:
 		# https://stackoverflow.com/questions/45164691/recommended-way-to-implement-eq-and-hash
+
 		# Since the total_num_flags and dates_called are mutable, we don't want
 		# to use them for the hash. The other pieces of data are not changed.
-		# We also don't use the UO ID in the hash, per project specifications that
-		# the UO ID not be used as a dictionary key.
 
+		# We also don't use the UO ID in the hash, per project specifications stating that
+		# the UO ID should not be used as a dictionary key.s
 		return (self.first_name, self.last_name, self.email_address, self.phonetic_spelling, self.reveal_code)
 
 	def __hash__(self):
@@ -101,8 +112,10 @@ class Student:
 	def __eq__(self, other):
 		"""
 		Tests if a Student object is equal to another object: that is, if they
-		are both Students, and their names, email address, phonetic spelling,
+		are both Students and their names, email address, phonetic spelling,
 		reveal code, and UO ID are all the same.
+
+		other: (Student) the student object to compare with self
 		"""
 		return isinstance(other, Student) and self.__members() == other.__members() and self.UO_ID == other.UO_ID
 
