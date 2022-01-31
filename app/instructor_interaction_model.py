@@ -86,7 +86,7 @@ class InstructorInteractionModel:
         self.ensure_directories_exist()
         self.roster = StudentRoster()
         self.queue = StudentQueue()
-        self.log_manager = LogManager("summary.txt")
+        self.log_manager = LogManager()
 
         # At the start, the first student on deck will be selected.
         self.index = 0
