@@ -117,9 +117,7 @@ class RandomVerification:
         if (os.path.exists(INTERNAL_QUEUE_LOCATION)):
             self.test_queue.load_queue_from_file(INTERNAL_QUEUE_LOCATION)
         else:
-            while not roster_found:
-                roster_found = True
-                self.test_queue.queue_from_roster(INTERNAL_ROSTER_LOCATION)
+            self.test_queue.queue_from_roster(INTERNAL_ROSTER_LOCATION)
 
     def random_call(self):
         """
