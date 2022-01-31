@@ -70,7 +70,7 @@ class Display:
         # tall.
         self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x60')
         self.main_window.resizable(False, False)
-        # Bind key presses to repsective functions
+        # Bind key presses to respective functions
         self.main_window.bind_all("<KeyRelease>", self.rdv.add_and_check_for_random_verification, True)
         self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index)
         self.main_window.bind_all(f"<{MOVE_RIGHT_KEY}>", controller.shift_index)
