@@ -59,18 +59,14 @@ class Display:
 
     """
     def __init__(self, controller):
-        # The controller is the instructor_interaction_model object that
-        # controls the display.
         self.rdv = RandomVerification()
         # Configure display window
         self.main_window = Tk()
         self.main_window.configure(bg="white")
-        self.main_window.title("CoolCall")
-        # We want the window to be as wide as the screen, but only 60 pixels
-        # tall.
+        self.main_window.title("Cold Call application")
         self.main_window.geometry(f'{self.main_window.winfo_screenwidth()}x60')
         self.main_window.resizable(False, False)
-        # Bind key presses to repsective functions
+        # Bind key presses to respective functions
         self.main_window.bind_all("<KeyRelease>", self.rdv.add_and_check_for_random_verification, True)
         self.main_window.bind_all(f"<{MOVE_LEFT_KEY}>", controller.shift_index)
         self.main_window.bind_all(f"<{MOVE_RIGHT_KEY}>", controller.shift_index)
@@ -89,7 +85,7 @@ class Display:
         )
         # Configure labels
         self.labels = [
-            Label(self.main_window, bg="white", fg="black", text="", width=0) for _
+            Label(self.main_window, bg="white", fg="black", text="", width=0) for i
             in range(NUM_ON_DECK)]
 
 
