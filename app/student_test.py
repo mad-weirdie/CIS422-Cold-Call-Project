@@ -7,10 +7,10 @@ Script Name:    CoolCall Testing Script
 Description:    This script can be run at the command line to test the program
                 during development.
 
-Author:         Amy Reichold
+Author:         Amy Reichhold
 
 Last Edited:    1/25/2022
-Last Edit By:   Amy Reichold
+Last Edit By:   Amy Reichhold
 """
 ###############################################################################
 from student import Student

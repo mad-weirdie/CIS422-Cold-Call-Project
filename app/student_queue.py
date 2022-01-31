@@ -13,7 +13,7 @@ Description:    The Student Queue Class for the CoolCall Program.
 				location in the queue. They are then inserted into the back
 				part of the queue, allowing the students in between to shift down.
 
-Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichold, 
+Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichhold, 
 				Madison Werries
                 
 Last Edited:    1/30/2022

@@ -11,7 +11,7 @@ Description:    The main controller for the CoolCall Program.
                 on this input. This module is also responsible for importing
                 and exporting student data roster files.
 
-Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichold, 
+Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichhold, 
                 Madison Werries
                 
 Last Edited:    1/30/2022

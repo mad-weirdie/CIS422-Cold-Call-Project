@@ -9,12 +9,11 @@ Description:    The system admin or instructor may enter this mode to verify tha
                 to ensure that students are cold called at an even rate compared to
                 other students.
 
-Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichold, 
+Authors:        Arden Butterfield, Quinn Fetrow, Derek Martin, Amy Reichhold, 
                 Madison Werries
 
 Last Edited:    1/30/2022
 Last Edit By:   Madison Werries
-
 """
 ###############################################################################
 from tkinter import filedialog, messagebox
